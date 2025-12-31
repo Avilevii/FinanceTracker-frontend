@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 const HamburgerMenu = ({ onClick }) => {
   return (
     <IconButton onClick={onClick}>
-      <MenuIcon />
+      <MenuIcon sx={{color: 'white'}} />
     </IconButton>
   );
 };

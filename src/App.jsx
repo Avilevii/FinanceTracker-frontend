@@ -4,11 +4,12 @@ import HomePage from "./pages/HomePage";
 import HistoryPage from "./pages/HistoryPage";
 import TransactionsPage from "./pages/TransactionsPage";
 import AppLayout from "./layout/AppLayout";
+import './index.css';
 const App = () => {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<AuthPage />}></Route>
+        <Route path="/auth" element={<AuthPage />}></Route>
         <Route element={<AppLayout />}>
           <Route path="home" element={<HomePage />} />
           <Route path="history" element={<HistoryPage />} />

@@ -1,4 +1,10 @@
+import TabsGeneri from "../comps/TabsGeneri";
+
 const TransactionsPage = () => {
-  return <div>TransactionsPage</div>;
+  const tabs = [
+    {label: "incom", content: "Hello"},
+    {label: "expenses", content: "Avraham"}
+  ]
+  return <div> <TabsGeneri tabs={tabs}/></div>;
 };
 export default TransactionsPage;
