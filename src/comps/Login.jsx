@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import InputGlobal from "../globalComps/InputGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import {
-    fetchLogin,
   selectError,
   selectMessage,
   selectStatus,
 } from "../features/authSlice.js";
 import CircularProgress from "@mui/material/CircularProgress";
 import { useNavigate } from "react-router-dom";
+import { fetchLogin } from "../thunks/authThunk.js";
 
 const Login = () => {
   const [userName, setUserName] = useState('');

@@ -3,9 +3,15 @@ import { getBalance } from '../api/getBalanceApi.js';
 
 export const fetchBalance = createAsyncThunk(
     'balance/fetchBalance',
-    async(id) => {
-        const data = await getBalance(id)
-        return data;
+    async(id, {rejectWithValue}) => {
+        try{
+            const data = await getBalance(id)
+            return data;
+
+        }
+        catch(err){
+            return rejectWithValue(err.message || 'balance failed')
+        }
     }
 )
 
@@ -29,7 +35,7 @@ const balanceSlice = createSlice({
         })
         .addCase(fetchBalance.rejected, (state, action) =>{
             state.status = 'failed';
-            state.error = action.error.message;
+            state.error = action.payload;
         })
     }
 })

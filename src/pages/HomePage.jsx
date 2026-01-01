@@ -8,23 +8,33 @@ import Logout from "../comps/Logout";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 // import { fetchBalance, selectBalance, selectStatus } from "../features/balanceSlice";
 
-
 const HomePage = () => {
-    const {setHeaderRight} = useOutletContext();
+  const { setHeaderRight } = useOutletContext();
 
-    useEffect(() => {
-        setHeaderRight(<ButtonGlobal>Logout</ButtonGlobal>);
-        return () => {
+  useEffect(() => {
+    setHeaderRight(<ButtonGlobal>Logout</ButtonGlobal>);
+    return () => {
       setHeaderRight(null);
     };
-    },[setHeaderRight])
+  }, [setHeaderRight]);
 
   return (
-    <Box  sx={{height: "100vh"}}>
-        <Toolbar sx={backgroundStyle}/>
-      <Box sx={{minHeight: "40%", ...backgroundStyle, borderEndEndRadius: '20px', borderEndStartRadius: "20px"}}>
+    <Box sx={{ height: "100vh" }}>
+      <Toolbar sx={backgroundStyle} />
+      <Box
+        sx={{
+          minHeight: "40%",
+          ...backgroundStyle,
+          borderEndEndRadius: "20px",
+          borderEndStartRadius: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "column",
+        }}
+      >
         HomePage
-        </Box>
+      </Box>
       <Box></Box>
       <Box>HomePage</Box>
       <Box>HomePage</Box>

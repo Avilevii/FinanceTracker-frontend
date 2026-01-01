@@ -7,11 +7,11 @@ import Typography from "@mui/material/Typography";
 import InputGlobal from "../globalComps/InputGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import {
-  fetchSignUp,
   selectError,
   selectMessage,
   selectStatus,
 } from "../features/authSlice.js";
+import { fetchSignUp } from "../thunks/authThunk.js";
 
 const SignUp = () => {
   const [userName, setUserName] = useState('');

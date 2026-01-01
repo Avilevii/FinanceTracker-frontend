@@ -2,7 +2,7 @@ import { API } from "./getBalanceApi.js";
 
 const auth = "auth";
 
-export const postSignUp = async (userName, password) => {
+export const postSignUpFetch = async (userName, password) => {
   const response = await fetch(`${API}/${auth}/signUp`, {
     method: "POST",
     headers: {
@@ -17,7 +17,7 @@ export const postSignUp = async (userName, password) => {
   return { msg, userId };
 };
 
-export const postLogin = async (userName, password) => {
+export const postLoginFetch = async (userName, password) => {
   const response = await fetch(`${API}/${auth}/login`, {
     method: "POST",
     headers: {
