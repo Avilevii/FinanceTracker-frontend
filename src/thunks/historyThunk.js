@@ -3,7 +3,7 @@ import { createHistoryFetch, delteHistoryFetch, getAllHistoryFetch, getHistoryBy
 
 export const getAllHistoryThunk = createAsyncThunk(
     'history/getAllHistory',
-    async ({userId}, {rejectWithValue}) => {
+    async (userId, {rejectWithValue}) => {
         try{
             const data = await getAllHistoryFetch(userId);
             return data;
@@ -29,7 +29,7 @@ export const getHistoryByMonthThunk = createAsyncThunk(
 
 export const createHistoryThunk = createAsyncThunk(
     'history/createHistory',
-    async ({newHistory}, {rejectWithValue}) => {
+    async (newHistory, {rejectWithValue}) => {
         try{
             const data = await createHistoryFetch(newHistory);
             return data;
@@ -65,4 +65,3 @@ export const deleteHistoryThunk = createAsyncThunk(
         }
     }
 )
-

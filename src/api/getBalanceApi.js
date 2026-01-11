@@ -1,4 +1,5 @@
-export const API = " http://localhost:3000";
+import { API } from "../constance";
+
 
 export const getBalance = async (id) => {
   const response = await fetch(`${API}/balance/getBalance/${id}`);

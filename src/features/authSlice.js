@@ -1,10 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchLogin, fetchSignUp } from "../thunks/authThunk";
 
-
-const loading = 'loading';
-const succeeded = 'succeeded';
-const failed = 'failed';
+const loading = "loading";
+const succeeded = "succeeded";
+const failed = "failed";
 // ---auth slice---
 const authSlice = createSlice({
   name: "auth",
@@ -14,7 +13,11 @@ const authSlice = createSlice({
     status: "idle", // idle | loading | succeeded | failed
     error: null,
   },
-  reducers: {},
+  reducers: {
+    setUserId: (state, action) => {
+      state.userId = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // ---login case---
@@ -48,6 +51,7 @@ const authSlice = createSlice({
       });
   },
 });
+export const { setUserId } = authSlice.actions;
 export const selectMessage = (state) => state.auth.message;
 export const selectStatus = (state) => state.auth.status;
 export const selectError = (state) => state.auth.error;

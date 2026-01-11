@@ -1,4 +1,4 @@
-import { API } from "./getBalanceApi";
+import { API } from "../constance";
 
 const history = "history";
 
@@ -8,9 +8,8 @@ export const getAllHistoryFetch = async (userId) => {
   );
 
   const result = await response.json();
-  const { msg, history } = result;
-  if (!response.ok) throw new Error(msg || "history failed");
-  return history;
+  if (!response.ok) throw new Error(result.msg || "history failed");
+  return result;
 };
 
 export const getHistoryByMonthFetch = async (userId, period, month, year) => {

@@ -3,7 +3,7 @@ import { createCategoryFetch, deleteCategoryFetch, getAllCategoriesFetch, update
 
 export const getCategoriesThunk = createAsyncThunk(
     'categories/getAllCategories',
-    async ({userId}, {rejectWithValue}) => {
+    async (userId, {rejectWithValue}) => {
         try{
             const data = await getAllCategoriesFetch(userId);
             return data;
@@ -15,7 +15,7 @@ export const getCategoriesThunk = createAsyncThunk(
 )
 export const createCategoriesThunk = createAsyncThunk(
     'categories/createCategory',
-    async ({newCategory}, {rejectWithValue}) => {
+    async (newCategory, {rejectWithValue}) => {
         try{
             const data = await createCategoryFetch(newCategory);
             return data;

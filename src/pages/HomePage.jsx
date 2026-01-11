@@ -1,15 +1,20 @@
 import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
+import {useDispatch, useSelector } from 'react-redux'
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-// import {useDispatch, useSelector } from 'react-redux'
 import { backgroundStyle } from "../styles/headecolor";
 import Logout from "../comps/Logout";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
-// import { fetchBalance, selectBalance, selectStatus } from "../features/balanceSlice";
-
+import { fetchBalance, selectBalance, } from "../features/balanceSlice";
+import { selectUserId } from "../features/authSlice";
 const HomePage = () => {
   const { setHeaderRight } = useOutletContext();
+
+  const dispatch = useDispatch();
+
+  const balance = useSelector(selectBalance);
+  const userId = useSelector(selectUserId);
 
   useEffect(() => {
     setHeaderRight(<ButtonGlobal>Logout</ButtonGlobal>);
@@ -17,6 +22,12 @@ const HomePage = () => {
       setHeaderRight(null);
     };
   }, [setHeaderRight]);
+
+  useEffect(() => {
+  if (userId) {
+    dispatch(fetchBalance(userId));
+  }
+}, [dispatch, userId]);
 
   return (
     <Box sx={{ height: "100vh" }}>
@@ -33,10 +44,12 @@ const HomePage = () => {
           flexDirection: "column",
         }}
       >
-        HomePage
+        <Box>Balance</Box>
+        <Box sx={{color: balance < 0 ? "red" : 'white', fontSize: "2rem"}} >₪ {balance}</Box>
+        <ButtonGlobal sx={{marginTop: "120px"}}>All Action</ButtonGlobal>
       </Box>
       <Box></Box>
-      <Box>HomePage</Box>
+      <Box>hi{userId}</Box>
       <Box>HomePage</Box>
     </Box>
   );

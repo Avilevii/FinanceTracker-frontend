@@ -1,10 +1,30 @@
+import { useOutletContext } from "react-router-dom";
+import ExpensesTransaction from "../comps/ExpensesTransaction";
+import IncomeTranaction from "../comps/IncomeTranaction";
 import TabsGeneri from "../comps/TabsGeneri";
+import Box from "@mui/material/Box";
+import { useEffect } from "react";
 
 const TransactionsPage = () => {
+  const { setHeaderCenter } = useOutletContext();
+
   const tabs = [
-    {label: "incom", content: "Hello"},
-    {label: "expenses", content: "Avraham"}
-  ]
-  return <div> <TabsGeneri tabs={tabs}/></div>;
+    {label: 'income', content: <IncomeTranaction/>},
+    {label: 'expenses', content: <ExpensesTransaction/>}
+  ];
+
+  useEffect(() => {
+    setHeaderCenter(<p>transaction</p>);
+
+    return () => (setHeaderCenter(null));
+  },[setHeaderCenter])
+  
+  return (
+    <Box sx={{ backgroundColor:
+        "var(--muidocs-palette-success-50, hsl(144, 72%, 95%))"}}>
+      <TabsGeneri tabs={tabs} style={{mx: 5}}/>
+    </Box>
+ 
+);
 };
 export default TransactionsPage;

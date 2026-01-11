@@ -3,6 +3,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import MenuList from "../comps/MenuList";
 import Header from "./Header";
 import HamburgerMenu from "../comps/HamburgerMenu";
+import Toolbar from "@mui/material/Toolbar";
 
 const AppLayout = () => {
   const [open, setOpen] = useState(false);
@@ -22,6 +23,7 @@ const AppLayout = () => {
   return (
     <>
       <Header left={headerLeft} center={headerCenter} right={headerRight} />
+      <Toolbar />
 
       <MenuList
         open={open}

@@ -40,6 +40,6 @@ const balanceSlice = createSlice({
     }
 })
 export const selectBalance = (state) => state.balance.balance;
-export const selectStatus = (state) => state.balance.status;
-export const selectError = (state) => state.balance.error;
+export const selectStatusBalance = (state) => state.balance.status;
+export const selectErrorBalance = (state) => state.balance.error;
 export default balanceSlice.reducer;

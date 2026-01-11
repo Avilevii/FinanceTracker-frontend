@@ -1,4 +1,4 @@
-import { API } from "./getBalanceApi";
+import { API } from "../constance";
 
 const categories = "categories";
 
@@ -8,9 +8,8 @@ export const getAllCategoriesFetch = async (userId) => {
   );
 
   const result = await response.json();
-  const { msg, data } = result;
-  if (!response.ok) throw new Error(msg || "Signup failed");
-  return data;
+  if (!response.ok) throw new Error(result.msg || "Signup failed");
+  return result;
 };
 
 export const createCategoryFetch = async (newCategory) => {

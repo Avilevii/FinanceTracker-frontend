@@ -1,0 +1,49 @@
+🏦 כללי / כספים
+
+FaWallet
+FaMoneyBill
+FaMoneyBillWave
+FaCoins
+FaPiggyBank
+FaCreditCard
+FaUniversity
+FaChartLine
+FaChartPie
+FaBalanceScale
+
+🛒 הוצאות יומיומיות
+
+FaShoppingCart
+FaShoppingBag
+FaStore
+FaReceipt
+FaUtensils
+FaCoffee
+FaCar
+FaBus
+FaGasPump
+FaHome
+
+💼 הכנסות / עבודה
+
+FaBriefcase
+FaBuilding
+FaHandshake
+FaFileInvoiceDollar
+FaCashRegister
+
+📱 שירותים / מנויים
+
+FaMobileAlt
+FaWifi
+FaBolt
+FaLightbulb
+FaTv
+
+🔧 ניהול / הגדרות
+
+FaTags
+FaListAlt
+FaCalendarAlt
+FaRegClock
+FaCog

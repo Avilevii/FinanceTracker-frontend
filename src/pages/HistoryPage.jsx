@@ -1,4 +1,7 @@
-const HistoryPage = () => {
-  return <div>HistoryPage</div>;
-};
-export default HistoryPage;
+
+const  History = () => {
+  return (
+    <div>History</div>
+  )
+}
+export default History

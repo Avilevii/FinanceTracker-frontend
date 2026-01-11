@@ -1,4 +1,4 @@
-import { API } from "./getBalanceApi.js";
+import { API } from "../constance";
 
 const auth = "auth";
 

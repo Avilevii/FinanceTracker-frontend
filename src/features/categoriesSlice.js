@@ -40,7 +40,11 @@ export const categoriesSlice = createSlice({
       })
       .addCase(createCategoriesThunk.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.items.push(action.payload.cretedCategory);
+        const newCategory = action.payload.cretedCategory;
+        state.items = state.items.filter(({userId, iconName}) => {
+          return  !(userId === 0 && iconName === newCategory.iconName);
+        })
+        state.items.push(newCategory);
         state.message = action.payload.msg;
       })
       .addCase(createCategoriesThunk.rejected, (state, action) => {
