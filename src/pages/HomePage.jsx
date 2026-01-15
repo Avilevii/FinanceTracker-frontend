@@ -1,13 +1,17 @@
 import { useEffect } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import {useDispatch, useSelector } from 'react-redux'
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import { backgroundStyle } from "../styles/headecolor";
 import Logout from "../comps/Logout";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import { fetchBalance, selectBalance, } from "../features/balanceSlice";
 import { selectUserId } from "../features/authSlice";
+import { styleBoxHome, styleHeaderHome, stylepaperBalance } from "../styles/homePageStyel";
+import Paper from "@mui/material/Paper";
+import HistoryTableHomePage from "../comps/tables/HistoryTableHomePage";
+
+
 const HomePage = () => {
   const { setHeaderRight } = useOutletContext();
 
@@ -15,9 +19,12 @@ const HomePage = () => {
 
   const balance = useSelector(selectBalance);
   const userId = useSelector(selectUserId);
+  const isBalance = balance < 0 ? "red" : 'green';
+
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setHeaderRight(<ButtonGlobal>Logout</ButtonGlobal>);
+    setHeaderRight(<Logout/>);
     return () => {
       setHeaderRight(null);
     };
@@ -30,27 +37,17 @@ const HomePage = () => {
 }, [dispatch, userId]);
 
   return (
-    <Box sx={{ height: "100vh" }}>
-      <Toolbar sx={backgroundStyle} />
+    <Box sx={styleBoxHome}>
       <Box
-        sx={{
-          minHeight: "40%",
-          ...backgroundStyle,
-          borderEndEndRadius: "20px",
-          borderEndStartRadius: "20px",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-        }}
+        sx={styleHeaderHome}
       >
+        <Paper elevation={12} sx={stylepaperBalance}>
         <Box>Balance</Box>
-        <Box sx={{color: balance < 0 ? "red" : 'white', fontSize: "2rem"}} >₪ {balance}</Box>
-        <ButtonGlobal sx={{marginTop: "120px"}}>All Action</ButtonGlobal>
+        <Box sx={{color: isBalance, fontSize: "2rem"}} >₪ {balance}</Box>
+        </Paper>
+        <ButtonGlobal sx={{my: 2 }} onClick={() => navigate('/transactions')}>All Action</ButtonGlobal>
       </Box>
-      <Box></Box>
-      <Box>hi{userId}</Box>
-      <Box>HomePage</Box>
+      <HistoryTableHomePage  />
     </Box>
   );
 };

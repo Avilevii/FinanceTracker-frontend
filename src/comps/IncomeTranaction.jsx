@@ -17,12 +17,14 @@ import { selectUserId } from "../features/authSlice";
 import { createCategoriesThunk } from "../thunks/categoriesThunk";
 import { createHistoryThunk } from "../thunks/historyThunk";
 import { selectMessage } from "../features/historySlice";
+import CreateCategory from "../globalComps/CreateCategory";
 
 const IncomeTranaction = () => {
-  const [amount, setAmount] = useState("0");
+  const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [hasError, setHasError] = useState(false);
-  const [selectedCat, setSelectedCat] = useState(null)
+  const [selectedCat, setSelectedCat] = useState(null);
+  const [createCategory, setCreateCategory] = useState(false)
 
   const dispatch = useDispatch();
 
@@ -60,9 +62,13 @@ const IncomeTranaction = () => {
     const { id, categoryName, iconName } = category;
     if (id === "edit"){
     return  setSelectedCat(null)
-    };
-    if (id === "createCategory");
-    if (category.userId === 0) {
+    }
+    else if(id === "createCategory"){
+      setSelectedCat(false);
+      setCreateCategory(true)
+      return;
+    }
+    else if(category.userId === 0) {
       const newCategory = {
         userId,
         categoryName,
@@ -71,8 +77,10 @@ const IncomeTranaction = () => {
       };
       dispatch(createCategoriesThunk(newCategory));
     }
-    setCategoryId(id);
-    setSelectedCat(id);
+    else{
+      setCategoryId(id);
+      setSelectedCat(id);
+    }
   };
 
   const handleSubmit = (event) => {
@@ -89,44 +97,52 @@ const IncomeTranaction = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit} sx={styleBoxIncome}>
-      <Box sx={styleBoxTwoIncome}>
-        <Typography sx={{ whiteSpace: "nowrap" }}>ILS</Typography>
-        <InputGlobal
-          variant="standard"
-          error={hasError}
-          style={styleInputIncome}
-          onClick={handleClickInput}
-          value={amount}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          helperText={hasError ? "enter amount." : ""}
+    <Box>
+
+      <Box component="form" onSubmit={handleSubmit} sx={styleBoxIncome}>
+        <Box sx={styleBoxTwoIncome}>
+          <Typography sx={{ whiteSpace: "nowrap" }}>ILS</Typography>
+          <InputGlobal
+            variant="standard"
+            error={hasError}
+            style={styleInputIncome}
+            onClick={handleClickInput}
+            value={amount}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            helperText={hasError ? "enter amount." : " "}
+            autoFocus={true}
+          />
+        </Box>
+        <Typography sx={{ml: '3%'}}>
+          <br />
+          CATEGORIES
+          <br />
+          <br />
+        </Typography>
+        <Box sx={{ px: 6 }}>
+          <CategoriesGridGlobal
+            selectedCat={selectedCat}
+            categories={categories}
+            onCategoryClick={handleClickCategory}
+            actions={actions}
+          />
+          {message && <Typography>{message}</Typography>}
+        </Box>
+        <Box sx={styleBoxTree}>
+          <ButtonGlobal
+            type="submit"
+            sx={styleButtonSend}
+            disabled={!(amount > 0 && categoryId)}
+          >
+            send
+          </ButtonGlobal>
+        </Box>
+      </Box>
+        <CreateCategory
+        onclose={() => setCreateCategory(false)}
+        open={createCategory}
         />
-      </Box>
-      <Typography>
-        <br />
-        CATEGORIES
-        <br />
-        <br />
-      </Typography>
-      <Box sx={{ px: 6 }}>
-        <CategoriesGridGlobal
-          selectedCat={selectedCat}
-          categories={categories}
-          onCategoryClick={handleClickCategory}
-          actions={actions}
-        />
-        {message && <Typography>{message}</Typography>}
-      </Box>
-      <Box sx={styleBoxTree}>
-        <ButtonGlobal
-          type="submit"
-          sx={styleButtonSend}
-          disabled={amount > 0 && categoryId ? false : true}
-        >
-          send
-        </ButtonGlobal>
-      </Box>
     </Box>
   );
 };

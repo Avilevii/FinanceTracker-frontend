@@ -21,7 +21,7 @@ const TransactionsPage = () => {
   
   return (
     <Box sx={{ backgroundColor:
-        "var(--muidocs-palette-success-50, hsl(144, 72%, 95%))"}}>
+        "var(--muidocs-palette-success-50, #e9fbf0)"}}>
       <TabsGeneri tabs={tabs} style={{mx: 5}}/>
     </Box>
  

@@ -11,6 +11,8 @@ const InputGlobal = ({
   helperText,
   onClick,
   onBlur,
+  placeholder,
+  autoFocus,
 }) => {
   return (
     <TextField
@@ -24,6 +26,8 @@ const InputGlobal = ({
       helperText={helperText}
       onClick={onClick}
       onBlur={onBlur}
+      placeholder={placeholder}
+      autoFocus={autoFocus}
     />
   );
 };

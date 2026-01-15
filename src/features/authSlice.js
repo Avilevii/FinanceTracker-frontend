@@ -17,6 +17,12 @@ const authSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+    logout: (state) => {
+      state.userId = null;
+      state.message = null;
+      state.status = 'idle';
+      state.error = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -51,7 +57,7 @@ const authSlice = createSlice({
       });
   },
 });
-export const { setUserId } = authSlice.actions;
+export const { setUserId, logout } = authSlice.actions;
 export const selectMessage = (state) => state.auth.message;
 export const selectStatus = (state) => state.auth.status;
 export const selectError = (state) => state.auth.error;

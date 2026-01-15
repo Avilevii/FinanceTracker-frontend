@@ -1,6 +1,46 @@
+import Box from "@mui/material/Box"
+import { useState } from "react"
+import DialogGlobal from "../globalComps/DialogGlobal";
+import ButtonGlobal from "../globalComps/ButtonGlobal";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogActions from "@mui/material/DialogActions";
+import { styleButtonsLogout, styleDialogLogout } from "../styles/logoutStyle";
+import { useDispatch } from "react-redux";
+import { logout } from "../features/authSlice";
+import { useNavigate } from "react-router-dom";
+import { IoMdExit } from "react-icons/io";
+
+
 const Logout = () => {
+    const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch();
+
+    const navigate = useNavigate();
+
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+    const handleClickExit = () => {
+        dispatch(logout());
+        localStorage.removeItem('userId');
+        navigate('/auth')
+    }
   return (
-    <div>Logout</div>
+    <Box>
+        <ButtonGlobal onClick={handleOpen}>
+            <IoMdExit size={23}/>
+        </ButtonGlobal>
+        <DialogGlobal paperProps={styleDialogLogout}  open={open} onClose={handleClose}>
+            <DialogContentText >
+                ?האם אתה בטוח רוצה לצאת
+            </DialogContentText>
+            <DialogActions>
+                <ButtonGlobal onClick={handleClose} sx={styleButtonsLogout}>CANCEL</ButtonGlobal>
+
+                <ButtonGlobal colorType="error" onClick={handleClickExit} sx={{...styleButtonsLogout, px: 3.6}}>EXIT</ButtonGlobal>
+            </DialogActions>
+        </DialogGlobal>
+    </Box>
   )
 }
 export default Logout

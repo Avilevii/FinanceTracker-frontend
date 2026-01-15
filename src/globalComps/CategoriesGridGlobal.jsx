@@ -2,9 +2,10 @@ import Grid from "@mui/material/Grid";
 import { financeIconsMap } from "../icons";
 import Typography from "@mui/material/Typography";
 import Badge from "@mui/material/Badge";
-import { styleGridItem } from "../styles/categoriesGridStyle";
+import { styleBoxIcon, styleGridItem } from "../styles/categoriesGridStyle";
+import { Box } from "@mui/system";
 
-const CategoriesGridGlobal = ({ categories, onCategoryClick, actions=[], selectedCat }) => {
+const CategoriesGridGlobal = ({ categories=[], onCategoryClick, actions=[], selectedCat }) => {
     
     const items = [...categories, ...actions]
   const maxNameCategory = (name, maxLength = 8) => {
@@ -31,7 +32,12 @@ const CategoriesGridGlobal = ({ categories, onCategoryClick, actions=[], selecte
             invisible={!isSelected}
             overlap="circular"
           >
-            <Icon size={40} />
+            <Box sx={{...styleBoxIcon, ...(typeof id === 'string' && {
+                bgcolor: 'red'
+            })
+            }}>
+            <Icon size={35} style={{color: typeof id === 'string' ? 'white': ""}} />
+            </Box>
           </Badge>
           <Typography>{maxNameCategory(categoryName)}</Typography>
         </Grid>

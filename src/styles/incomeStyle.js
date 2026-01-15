@@ -1,7 +1,7 @@
 import { backgroundStyle } from "./headecolor";
 
 export const styleBoxIncome = {
-  minHeight: "100vh",
+  minHeight: "80.3vh",
   display: "flex",
   flexDirection: "column",
   backgroundColor: "var(--muidocs-palette-success-50, hsl(144, 72%, 95%))",

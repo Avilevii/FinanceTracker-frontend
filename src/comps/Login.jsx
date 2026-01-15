@@ -52,13 +52,12 @@ const Login = () => {
       onSubmit={handleSubmit}
     >
       <InputGlobal
-        key="userName"
         label="User Name"
         onChange={handleChangeUserName}
         value={userName}
+        autoFocus={true}
       />
       <InputGlobal
-        key="password"
         label="Password"
         onChange={handleChangePassword}
         value={password}

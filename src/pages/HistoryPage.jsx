@@ -1,7 +1,6 @@
-
-const  History = () => {
+const HistoryPage = () => {
   return (
-    <div>History</div>
+    <div>HistoryPage</div>
   )
 }
-export default History
+export default  HistoryPage

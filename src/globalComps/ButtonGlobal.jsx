@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button"
 
-const  ButtonGlobal = ({color="contained",children, onClick, type='button', sx, disabled=false}) => {
+const  ButtonGlobal = ({color="contained",children, onClick, type='button', sx, disabled=false, disableRipple=false, colorType}) => {
   return (
     <Button
     sx={sx}
@@ -8,6 +8,8 @@ const  ButtonGlobal = ({color="contained",children, onClick, type='button', sx, 
      onClick={onClick}
      type={type}
      disabled={disabled}
+     disableRipple={disableRipple}
+     color={colorType}
      >
     {children}
     </Button>
