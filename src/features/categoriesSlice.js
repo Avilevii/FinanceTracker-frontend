@@ -16,7 +16,9 @@ const initialState = {
 export const categoriesSlice = createSlice({
   name: "categories",
   initialState,
-  reducers: {},
+  reducers: {
+    resetStateCategories: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       // ----------- GET ALL ----------
@@ -41,9 +43,6 @@ export const categoriesSlice = createSlice({
       .addCase(createCategoriesThunk.fulfilled, (state, action) => {
         state.status = "succeeded";
         const newCategory = action.payload.cretedCategory;
-        state.items = state.items.filter(({userId, iconName}) => {
-          return  !(userId === 0 && iconName === newCategory.iconName);
-        })
         state.items.push(newCategory);
         state.message = action.payload.msg;
       })
@@ -87,6 +86,8 @@ export const categoriesSlice = createSlice({
       });
   },
 });
+
+export const {resetStateCategories} = categoriesSlice.actions;
 export const selectMessage = (state) => state.categories.message;
 export const selectStatus = (state) => state.categories.status;
 export const selectError = (state) => state.categories.error;

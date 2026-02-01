@@ -13,6 +13,7 @@ const InputGlobal = ({
   onBlur,
   placeholder,
   autoFocus,
+  defaultValue,
 }) => {
   return (
     <TextField
@@ -28,6 +29,7 @@ const InputGlobal = ({
       onBlur={onBlur}
       placeholder={placeholder}
       autoFocus={autoFocus}
+      defaultValue={defaultValue}
     />
   );
 };

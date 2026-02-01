@@ -15,14 +15,19 @@ export const fetchBalance = createAsyncThunk(
     }
 )
 
+const initialState = {
+  balance: 0,
+  status: "idle",
+  message: null,
+  error: null,
+};
+
 const balanceSlice = createSlice({
     name: 'balance',
-    initialState: {
-        balance:0,
-        status: 'idle', // idle | loading | succeeded | failed
-        error: null,
+    initialState,
+    reducers:{
+        resetStateBalance: () => initialState,
     },
-    reducers:{},
     extraReducers: (builder) => {
         builder
         .addCase(fetchBalance.pending, (state) => {
@@ -39,6 +44,8 @@ const balanceSlice = createSlice({
         })
     }
 })
+
+export const {resetStateBalance} = balanceSlice.actions;
 export const selectBalance = (state) => state.balance.balance;
 export const selectStatusBalance = (state) => state.balance.status;
 export const selectErrorBalance = (state) => state.balance.error;

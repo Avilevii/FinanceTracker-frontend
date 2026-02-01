@@ -54,8 +54,8 @@ const CreateCategory = ({ open = false, onclose }) => {
     dispatch(createCategoriesThunk(newCategory));
   };
 
-  const handleClickIconn = (iconName) => {
-    console.log("HI", iconName);
+  const 
+  handleClickIconn = (iconName) => {
     setIconName(iconName);
   };
   return (

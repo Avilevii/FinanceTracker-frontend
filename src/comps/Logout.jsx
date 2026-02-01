@@ -9,9 +9,12 @@ import { useDispatch } from "react-redux";
 import { logout } from "../features/authSlice";
 import { useNavigate } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
+import { resetStateBalance } from "../features/balanceSlice";
+import { resetStateHistory } from "../features/historySlice";
+import { resetStateCategories } from "../features/categoriesSlice";
 
 
-const Logout = () => {
+const Logout = ({sx, variant}) => {
     const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch();
@@ -22,12 +25,15 @@ const Logout = () => {
     const handleClose = () => setOpen(false);
     const handleClickExit = () => {
         dispatch(logout());
+        dispatch(resetStateBalance())
+        dispatch(resetStateHistory())
+        dispatch(resetStateCategories())
         localStorage.removeItem('userId');
         navigate('/auth')
     }
   return (
     <Box>
-        <ButtonGlobal onClick={handleOpen}>
+        <ButtonGlobal color={variant}  sx={sx} onClick={handleOpen}>
             <IoMdExit size={23}/>
         </ButtonGlobal>
         <DialogGlobal paperProps={styleDialogLogout}  open={open} onClose={handleClose}>

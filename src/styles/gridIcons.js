@@ -1,6 +1,6 @@
 export const styleIconOnClick = {
-  backgroundColor: "white",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)",
+  backgroundColor:  "rgba(193, 98, 98, 1)" ,
+    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.4)",
 
 };
 

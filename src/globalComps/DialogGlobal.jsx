@@ -6,7 +6,7 @@ const DialogGlobal = ({open, onClose, children, fullScreen, paperProps, sx }) =>
    <Dialog
    open={open}
    onClose={onClose}
-   fullScreen={fullScreen ? fullScreen : false}
+   fullScreen={fullScreen ?? false}
    slotProps={{paper: paperProps}}
    sx={sx}
    >

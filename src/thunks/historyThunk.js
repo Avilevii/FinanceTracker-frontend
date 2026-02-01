@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createHistoryFetch, delteHistoryFetch, getAllHistoryFetch, getHistoryByMonthFetch, updateHistoryFetch } from "../api/historyApi";
+import { createHistoryFetch, delteHistoryFetch, getAllHistoryFetch, getHistoryByMonthFetch, getHistoryByRangeFetch, updateHistoryFetch } from "../api/historyApi";
 
 export const getAllHistoryThunk = createAsyncThunk(
     'history/getAllHistory',
@@ -17,8 +17,23 @@ export const getAllHistoryThunk = createAsyncThunk(
 export const getHistoryByMonthThunk = createAsyncThunk(
     'history/getHistoryByMonth',
     async ({ userId, period, month, year }, { rejectWithValue }) => {
+        console.log('AVI', userId, period, month, year)
         try{
             const data = await getHistoryByMonthFetch(userId, period, month, year);
+            return data;
+        }
+        catch(err){
+            return rejectWithValue(err.message || 'Get history is faild try again later')
+        }
+    }
+);
+
+
+export const getHistoryByRangeThunk = createAsyncThunk(
+    'history/getHistoryByRange',
+    async ({ userId, period, startDate, endDate }, { rejectWithValue }) => {
+        try{
+            const data = await getHistoryByRangeFetch(userId, period, startDate, endDate);
             return data;
         }
         catch(err){

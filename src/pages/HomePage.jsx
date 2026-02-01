@@ -7,15 +7,18 @@ import Logout from "../comps/Logout";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import { fetchBalance, selectBalance, } from "../features/balanceSlice";
 import { selectUserId } from "../features/authSlice";
-import { styleBoxHome, styleHeaderHome, stylepaperBalance } from "../styles/homePageStyel";
+import { styleHeaderHome, stylepaperBalance } from "../styles/homePageStyel";
 import Paper from "@mui/material/Paper";
-import HistoryTableHomePage from "../comps/tables/HistoryTableHomePage";
-
+import Typography from "@mui/material/Typography";
+import useIsDesktop from "../hooks/useIsDesktopjs";
+import TableHistoryHomePage from "../comps/tables/TableHistoryHomePage";
 
 const HomePage = () => {
-  const { setHeaderRight } = useOutletContext();
+  const { setHeaderRight, setHeaderCenter } = useOutletContext();
 
   const dispatch = useDispatch();
+
+const isDesktop = useIsDesktop();
 
   const balance = useSelector(selectBalance);
   const userId = useSelector(selectUserId);
@@ -24,11 +27,19 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setHeaderRight(<Logout/>);
-    return () => {
-      setHeaderRight(null);
-    };
-  }, [setHeaderRight]);
+  if (isDesktop) {
+    setHeaderRight(<Logout />);
+  } else {
+    setHeaderRight(null);
+  }
+
+  setHeaderCenter(<Typography>HOME PAGE</Typography>);
+
+  return () => {
+    setHeaderRight(null);
+    setHeaderCenter(null);
+  };
+}, [isDesktop, setHeaderRight, setHeaderCenter]);
 
   useEffect(() => {
   if (userId) {
@@ -37,7 +48,7 @@ const HomePage = () => {
 }, [dispatch, userId]);
 
   return (
-    <Box sx={styleBoxHome}>
+    <Box>
       <Box
         sx={styleHeaderHome}
       >
@@ -45,9 +56,9 @@ const HomePage = () => {
         <Box>Balance</Box>
         <Box sx={{color: isBalance, fontSize: "2rem"}} >₪ {balance}</Box>
         </Paper>
-        <ButtonGlobal sx={{my: 2 }} onClick={() => navigate('/transactions')}>All Action</ButtonGlobal>
+        <ButtonGlobal sx={{my: 2 }} onClick={() => navigate('/transactions')}>transaction</ButtonGlobal>
       </Box>
-      <HistoryTableHomePage  />
+      <TableHistoryHomePage/>
     </Box>
   );
 };

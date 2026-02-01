@@ -1,9 +1,5 @@
 import { backgroundStyle } from "./headecolor";
 
-export const styleBoxHome = {
-  minHeight: "88.7vh",
-  backgroundColor: "var(--muidocs-palette-success-50, hsl(144, 72%, 95%))",
-};
 
 export const styleHeaderHome = {
   minHeight: "40vh",

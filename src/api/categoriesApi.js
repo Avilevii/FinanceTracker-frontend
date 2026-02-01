@@ -32,7 +32,7 @@ export const updateCategoryFetch = async (id, newCategory) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(newCategory),
+    body: JSON.stringify({id, categoryName: newCategory}),
   });
   const result = await response.json();
   const { msg, categoryUpdeted } = result;

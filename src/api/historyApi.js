@@ -4,7 +4,7 @@ const history = "history";
 
 export const getAllHistoryFetch = async (userId) => {
   const response = await fetch(
-    `${API}/${history}/getHIstoryByUserId/${userId}`
+    `${API}/${history}/gethistoryByUserId/${userId}`
   );
 
   const result = await response.json();
@@ -12,16 +12,27 @@ export const getAllHistoryFetch = async (userId) => {
   return result;
 };
 
+//HISTORY BY MONTH.
 export const getHistoryByMonthFetch = async (userId, period, month, year) => {
   const response = await fetch(
-    `${API}/${history}/getHIstoryByUserId/${userId}?period=${period}&month=${month}&year=${year}`);
+    `${API}/transactions/${userId}?period=${period}&month=${month}&year=${year}`);
 
   const result = await response.json();
-  const { msg, data } = result;
-  if (!response.ok) throw new Error(msg || "history failed");
-  return data;
+  if (!response.ok) throw new Error(result.msg || "history failed");
+  return result;
 };
 
+// HISTORY BY RANGE
+export const getHistoryByRangeFetch = async (userId, period, startDate, endDate) => {
+  const response = await fetch(
+    `${API}/transactions/${userId}?period=${period}&startDate=${startDate}&endDate=${endDate}`);
+    
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.msg || "history failed");
+  return result;
+};
+
+// CREATE
 export const createHistoryFetch = async (newHistory) => {
   const response = await fetch(
     `${API}/${history}/createHistory`, {
@@ -33,11 +44,12 @@ export const createHistoryFetch = async (newHistory) => {
     });
 
   const result = await response.json();
-  const { msg } = result;
+  const { msg, createdHistory } = result;
   if (!response.ok) throw new Error(msg || "createHistory failed");
-  return msg;
+  return {msg, createdHistory };
 };
 
+// UPDATE
 export const updateHistoryFetch = async (id, newHistory) => {
   const response = await fetch(
     `${API}/${history}/updateHistory/${id}`, {
@@ -49,9 +61,9 @@ export const updateHistoryFetch = async (id, newHistory) => {
     });
 
   const result = await response.json();
-  const { msg , history } = result;
+  const { msg , updatedHistory } = result;
   if (!response.ok) throw new Error(msg || "createHistory failed");
-  return {msg, history};
+  return {msg, updatedHistory};
 };
 
 export const delteHistoryFetch = async (id) => {

@@ -18,7 +18,7 @@ const GridIcons = ({ onClickIcon, selectedIcon, }) => {
         >
             <Box sx={{...styleBoxClick, ...(selectedIcon === name ? styleIconOnClick : {})}}> 
             <Box onClick={() => onClickIcon(name)} sx={styleIcons} >
-                <Icon size={35}/>
+                <Icon size={35} color="white"/>
             </Box>
             </Box>
 
