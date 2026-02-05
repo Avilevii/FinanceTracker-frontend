@@ -1,11 +1,15 @@
+import { useEffect } from "react";
 import { useOutletContext } from "react-router-dom";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
 import ExpensesTransaction from "../comps/ExpensesTransaction";
 import IncomeTranaction from "../comps/IncomeTranaction";
 import TabsGeneri from "../comps/TabsGeneri";
-import Box from "@mui/material/Box";
-import { useEffect } from "react";
 
 const TransactionsPage = () => {
+  
   const { setHeaderCenter } = useOutletContext();
 
   const tabs = [
@@ -14,7 +18,7 @@ const TransactionsPage = () => {
   ];
 
   useEffect(() => {
-    setHeaderCenter(<p>transaction</p>);
+    setHeaderCenter(<Typography>TRANSACTION</Typography>);
 
     return () => (setHeaderCenter(null));
   },[setHeaderCenter])

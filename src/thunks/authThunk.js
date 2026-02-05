@@ -1,4 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
+
 import { postLoginFetch, postSignUpFetch } from "../api/authApi";
 
 export const fetchLogin = createAsyncThunk(
@@ -6,14 +7,14 @@ export const fetchLogin = createAsyncThunk(
   async ({ userName, password }, { rejectWithValue }) => {
     try {
       const data = await postLoginFetch(userName, password);
-      
-      localStorage.setItem('userId', data.userId)
+
+      localStorage.setItem("userId", data.userId);
 
       return data;
     } catch (err) {
       return rejectWithValue(err.message || "Login failed try again later");
     }
-  }
+  },
 );
 
 export const fetchSignUp = createAsyncThunk(
@@ -27,5 +28,5 @@ export const fetchSignUp = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.message || "Login failed try again later");
     }
-  }
+  },
 );

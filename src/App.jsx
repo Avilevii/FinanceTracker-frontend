@@ -1,39 +1,38 @@
-import { Navigate, Route, Routes } from "react-router-dom";
 import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import { selectUserId, setUserId } from "./features/authSlice";
-import { getCategoriesThunk } from "./thunks/categoriesThunk";
-import { getAllHistoryThunk } from "./thunks/historyThunk";
 import "./index.css";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import HistoryPage from "./pages/HistoryPage";
 import AppLayout from "./layout/AppLayout";
 import TransactionsPage from "./pages/TransactionsPage";
+import { getCategoriesThunk } from "./thunks/categoriesThunk";
+
 const App = () => {
-  const dispatch = useDispatch();
   const userId = useSelector(selectUserId);
 
-  useEffect (() => {
-    if( !userId) return;
-    dispatch(getCategoriesThunk(userId));
-    dispatch(getAllHistoryThunk(userId));
-  },[dispatch, userId]);
+  const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!userId) return;
+    dispatch(getCategoriesThunk(userId));
+  }, [dispatch, userId]);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
-    if (!storedUserId ) return;
+    if (!storedUserId) return;
     dispatch(setUserId(Number(storedUserId)));
   }, [dispatch]);
 
   return (
     <div>
-      
       <Routes>
-         <Route path="/" element={<Navigate to="/auth" replace />} />
-
+        <Route path="/" element={<Navigate to="/auth" replace />} />
         <Route path="/auth" element={<AuthPage />}></Route>
+
         <Route element={<AppLayout />}>
           <Route path="home" element={<HomePage />} />
           <Route path="history" element={<HistoryPage />} />

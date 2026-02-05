@@ -1,13 +1,16 @@
-import { useState } from "react"
+import { useState } from "react";
+
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
+
 import TabPanel from "./TabPanel";
 
 const TabsGeneri = ({tabs, style}) => {
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => setValue(newValue)
+    
   return (
     <Box>
         <Tabs value={value} onChange={handleChange} centered>

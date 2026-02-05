@@ -1,7 +1,12 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import Box from "@mui/material/Box";
 import InputGlobal from "../globalComps/InputGlobal";
 import Typography from "@mui/material/Typography";
+
+import dayjs from "dayjs";
+
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import {
   styleBoxDate,
@@ -13,17 +18,16 @@ import {
   styleInputIncome,
 } from "../styles/incomeStyle";
 import CategoriesGridGlobal from "../globalComps/CategoriesGridGlobal";
-import { useDispatch, useSelector } from "react-redux";
-import { selectItems } from "../features/categoriesSlice";
+import { selectCategories } from "../features/categoriesSlice";
 import { selectUserId } from "../features/authSlice";
 import { createHistoryThunk } from "../thunks/historyThunk";
 import { selectMessage } from "../features/historySlice";
 import CreateCategory from "../globalComps/CreateCategory";
 import DatesGlobal from "../globalComps/DatesGlobal";
-import dayjs from "dayjs";
 import EditCategory from "../globalComps/EditCategory";
 
 const IncomeTranaction = () => {
+
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [hasError, setHasError] = useState(false);
@@ -34,18 +38,23 @@ const IncomeTranaction = () => {
 
   const clientDate = valueDate?.format("DD/MM/YYYY");
 
-  const dispatch = useDispatch();
-
-  const allCategories = useSelector(selectItems);
+  
+  const allCategories = useSelector(selectCategories);
   const userId = useSelector(selectUserId);
   const message = useSelector(selectMessage);
+  
+  const dispatch = useDispatch();
+
+  const edit = 'edit';
+  const create = 'create';
 
   const categories = allCategories.filter(
-    ({ categoryType }) => categoryType === "income"
+    ({ categoryType }) => categoryType === "income",
   );
+
   const actions = [
-    { id: "createCategory", categoryName: "הוספה", iconName: "create" },
-    { id: "edit", categoryName: "עריכה", iconName: "edit" },
+    { id: "createCategory", categoryName: create, iconName: create },
+    { id: edit, categoryName: edit, iconName: edit },
   ];
 
   const handleClickInput = () => {
@@ -62,16 +71,17 @@ const IncomeTranaction = () => {
     }
   };
 
-  const handleChange = (event) => {
-    setAmount(event.target.value);
+  const handleChange = ({target: {value}}) => {
+    setAmount(value);
   };
 
   const handleClickCategory = (category) => {
+
     const { id } = category;
-    if (id === "edit") {
+
+    if (id === edit) {
       setSelectedCat(null);
       setEditCategory(true);
-
     } else if (id === "createCategory") {
       setSelectedCat(false);
       setCreateCategory(true);
@@ -82,8 +92,8 @@ const IncomeTranaction = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const newHistory = {
       userId,
       amount,
@@ -115,7 +125,7 @@ const IncomeTranaction = () => {
         </Box>
         <Box sx={styleBoxDate}>
           <DatesGlobal
-            label="בחר תאריך"
+            label="select date"
             onlyPast={true}
             slotProps={styleDate}
             defaultValue={dayjs()}
@@ -144,7 +154,7 @@ const IncomeTranaction = () => {
             sx={styleButtonSend}
             disabled={!(amount > 0 && categoryId)}
           >
-            send
+            ADD TRANSACTION
           </ButtonGlobal>
         </Box>
       </Box>
@@ -153,10 +163,9 @@ const IncomeTranaction = () => {
         open={createCategory}
       />
       <EditCategory
-      open={editCategory}
-      onClose={ () => setEditCategory(false)}
-      categoryType='income'
-
+        open={editCategory}
+        onClose={() => setEditCategory(false)}
+        categoryType="income"
       />
     </Box>
   );

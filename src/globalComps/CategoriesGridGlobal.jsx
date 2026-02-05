@@ -1,14 +1,14 @@
 import Grid from "@mui/material/Grid";
-import { financeIconsMap } from "../icons";
 import Typography from "@mui/material/Typography";
-import Badge from "@mui/material/Badge";
+import { Box } from "@mui/system";
+
 import {
   styleBoxClickIcon,
   styleBoxIcon,
   styleGridItem,
 } from "../styles/categoriesGridStyle";
-import { Box } from "@mui/system";
 import { styleIconOnClick } from "../styles/gridIcons";
+import { financeIconsMap } from "../icons";
 
 const CategoriesGridGlobal = ({
   categories = [],
@@ -17,12 +17,15 @@ const CategoriesGridGlobal = ({
   selectedCat,
 }) => {
   const items = [...categories, ...actions];
+
   const maxNameCategory = (name, maxLength = 8) => {
     return name.length > maxLength ? name.slice(0, maxLength) + ".." : name;
   };
 
   const mapCategories = items.map(({ id, categoryName, iconName, userId }) => {
+
     const Icon = financeIconsMap[iconName];
+
     const isSelected = selectedCat === id;
 
     return (
@@ -52,6 +55,7 @@ const CategoriesGridGlobal = ({
       </Grid>
     );
   });
+  
   return (
     <Grid container spacing={2}>
       {mapCategories}

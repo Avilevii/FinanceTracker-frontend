@@ -1,9 +1,11 @@
-import Grid from "@mui/material/Grid";
 import { useSelector } from "react-redux";
-import { selectUserId } from "../features/authSlice";
-import { financeIconsMap } from "../icons";
+
+import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+
+import { selectUserId } from "../features/authSlice";
+import { financeIconsMap } from "../icons";
 import { sryleTypography, styleIcon, styleItemBox } from "../styles/gridEditStyle";
 
 const GridEditCategory = ({
@@ -11,7 +13,9 @@ const GridEditCategory = ({
   onClickCategory,
   categoryType,
 }) => {
+
   const userId = useSelector(selectUserId);
+  
   const categoriesFiltered = categories.filter(
     (category) =>
       category.userId === userId && category.categoryType === categoryType

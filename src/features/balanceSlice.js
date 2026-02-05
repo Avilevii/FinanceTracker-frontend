@@ -1,5 +1,7 @@
 import {createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
 import { getBalance } from '../api/getBalanceApi.js';
+import { FAILED, LOADING, SUCCEEDED } from '../constance.js';
 
 export const fetchBalance = createAsyncThunk(
     'balance/fetchBalance',
@@ -31,15 +33,15 @@ const balanceSlice = createSlice({
     extraReducers: (builder) => {
         builder
         .addCase(fetchBalance.pending, (state) => {
-            state.status = 'loading';
+            state.status = LOADING;
             state.error = null;
         })
         .addCase(fetchBalance.fulfilled, (state, action) => {
-            state.status = "succeeded";
+            state.status = SUCCEEDED;
             state.balance = action.payload;
         })
         .addCase(fetchBalance.rejected, (state, action) =>{
-            state.status = 'failed';
+            state.status = FAILED;
             state.error = action.payload;
         })
     }

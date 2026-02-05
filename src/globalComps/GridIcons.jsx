@@ -1,15 +1,19 @@
 import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+
 import { filterIcons } from "../constance";
 import { financeIconsMap } from "../icons";
 import { styleBoxClick, styleGridItem, styleIconOnClick, styleIcons } from "../styles/gridIcons";
-import Box from "@mui/material/Box";
 
 const GridIcons = ({ onClickIcon, selectedIcon, }) => {
+
   const filteredIcons = Object.entries(financeIconsMap).filter(
     ([name]) => !filterIcons.includes(name)
   );
+
   const mapIcons = filteredIcons.map(( [name, icon ] ) => {
     const Icon = icon;
+
     return (
         <Grid
         key={name}

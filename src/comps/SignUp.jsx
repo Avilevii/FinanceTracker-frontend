@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
+
 import InputGlobal from "../globalComps/InputGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
 import {
@@ -14,13 +16,15 @@ import {
 import { fetchSignUp } from "../thunks/authThunk.js";
 
 const SignUp = () => {
+
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const message = useSelector(selectMessage);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
-  
+
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
@@ -30,14 +34,15 @@ const SignUp = () => {
     }
   }, [status, navigate]);
 
-  const dispatch = useDispatch();
 
-  const handleChangeUserName = (e) => setUserName(e.target.value);
-  const handleChangePassword = (e) => setPassword(e.target.value);
+  const handleChangeUserName = ({target: {value}}) => setUserName(value);
+  const handleChangePassword = ({target: {value}}) => setPassword(value);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchSignUp({ userName, password }));
   };
+
   return (
     <Box
       component="form"

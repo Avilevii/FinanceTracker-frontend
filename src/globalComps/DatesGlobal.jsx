@@ -1,8 +1,7 @@
 import { DatePicker } from "@mui/x-date-pickers";
-import dayjs from "dayjs";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
+
+import dayjs from "dayjs";
 
 const DatesGlobal = ({
   label,
@@ -39,10 +38,10 @@ const DatesGlobal = ({
           slotProps={{
             textField: {
               sx: {
-                width: 1,
-                height: 1,
-                minWidth: 1,
-                minHeight: 1,
+                width: 0,
+                height: 0,
+                minWidth: 0,
+                minHeight: 0,
                 opacity: 0,
                 pointerEvents: "none",
               },
@@ -67,6 +66,7 @@ const DatesGlobal = ({
             }}
            label='start date'
           />
+
           <DatePicker
             slotProps={slotProps}
             calendars={1}
@@ -78,7 +78,9 @@ const DatesGlobal = ({
             label='end date'
           />
         </Box>
+        
       ) : (
+
         <DatePicker
           label={label}
           value={valueSingle}

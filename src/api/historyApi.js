@@ -2,9 +2,10 @@ import { API } from "../constance";
 
 const history = "history";
 
-export const getAllHistoryFetch = async (userId) => {
+// ALL HISTORY.
+export const getAllHistoryFetch = async (userId, period, sortCategory, sortTypeCategory) => {
   const response = await fetch(
-    `${API}/${history}/gethistoryByUserId/${userId}`
+    `${API}/transactions/${userId}?period=${period}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`
   );
 
   const result = await response.json();
@@ -13,9 +14,10 @@ export const getAllHistoryFetch = async (userId) => {
 };
 
 //HISTORY BY MONTH.
-export const getHistoryByMonthFetch = async (userId, period, month, year) => {
+export const getHistoryByMonthFetch = async (userId, period, month, year,  sortCategory, sortTypeCategory) => {
+  console.log("month", sortCategory, sortTypeCategory)
   const response = await fetch(
-    `${API}/transactions/${userId}?period=${period}&month=${month}&year=${year}`);
+    `${API}/transactions/${userId}?period=${period}&month=${month}&year=${year}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`);
 
   const result = await response.json();
   if (!response.ok) throw new Error(result.msg || "history failed");
@@ -23,11 +25,13 @@ export const getHistoryByMonthFetch = async (userId, period, month, year) => {
 };
 
 // HISTORY BY RANGE
-export const getHistoryByRangeFetch = async (userId, period, startDate, endDate) => {
+export const getHistoryByRangeFetch = async (userId, period, startDate, endDate, sortCategory, sortTypeCategory) => {
   const response = await fetch(
-    `${API}/transactions/${userId}?period=${period}&startDate=${startDate}&endDate=${endDate}`);
-    
+    `${API}/transactions/${userId}?period=${period}&startDate=${startDate}&endDate=${endDate}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`);
+    console.log("AVI", sortCategory, sortTypeCategory)
+  
     const result = await response.json();
+    
     if (!response.ok) throw new Error(result.msg || "history failed");
   return result;
 };

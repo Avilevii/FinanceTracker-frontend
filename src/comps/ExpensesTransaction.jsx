@@ -1,8 +1,11 @@
-import Box from "@mui/material/Box";
-// import { styleExpensesBox } from "../styles/expensesTransactionStyle";
-import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+
+import dayjs from "dayjs";
+
 import { createHistoryThunk } from "../thunks/historyThunk";
 import {
   styleBoxDate,
@@ -14,16 +17,16 @@ import {
   styleInputIncome,
 } from "../styles/incomeStyle";
 import CreateCategory from "../globalComps/CreateCategory";
-import { selectItems, selectMessage } from "../features/categoriesSlice";
+import { selectCategories, selectMessage } from "../features/categoriesSlice";
 import { selectUserId } from "../features/authSlice";
 import InputGlobal from "../globalComps/InputGlobal";
 import CategoriesGridGlobal from "../globalComps/CategoriesGridGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
-import dayjs from "dayjs";
 import DatesGlobal from "../globalComps/DatesGlobal";
 import EditCategory from "../globalComps/EditCategory";
 
 const ExpensesTransaction = () => {
+
   const [amount, setAmount] = useState("");
   const [categoryId, setCategoryId] = useState(0);
   const [hasError, setHasError] = useState(false);
@@ -31,12 +34,13 @@ const ExpensesTransaction = () => {
   const [createCategory, setCreateCategory] = useState(false);
   const [valueDate, setValueDate] = useState(null);
   const [editCategory, setEditCategory] = useState(false);
+  
+  const dispatch = useDispatch();
 
   const clientDate = valueDate?.format("DD/MM/YYYY");
 
-  const dispatch = useDispatch();
 
-  const allCategories = useSelector(selectItems);
+  const allCategories = useSelector(selectCategories);
   const userId = useSelector(selectUserId);
   const message = useSelector(selectMessage);
 
@@ -44,8 +48,8 @@ const ExpensesTransaction = () => {
     ({ categoryType }) => categoryType === "expenses",
   );
   const actions = [
-    { id: "createCategory", categoryName: "הוספה", iconName: "create" },
-    { id: "edit", categoryName: "עריכה", iconName: "edit" },
+    { id: "createCategory", categoryName: "create", iconName: "create" },
+    { id: "edit", categoryName: "edit", iconName: "edit" },
   ];
 
   const handleClickInput = () => {
@@ -62,12 +66,14 @@ const ExpensesTransaction = () => {
     }
   };
 
-  const handleChange = (event) => {
-    setAmount(event.target.value);
+  const handleChange = ({target: {value}}) => {
+    setAmount(value);
   };
 
   const handleClickCategory = (category) => {
+
     const { id } = category;
+
     if (id === "edit") {
       setSelectedCat(null);
       setEditCategory(true);
@@ -81,8 +87,8 @@ const ExpensesTransaction = () => {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const newHistory = {
       userId,
       amount,
@@ -90,6 +96,7 @@ const ExpensesTransaction = () => {
       description: "HI",
       clientDate,
     };
+
     dispatch(createHistoryThunk(newHistory));
     setAmount("0");
     setSelectedCat(null);
@@ -97,9 +104,13 @@ const ExpensesTransaction = () => {
 
   return (
     <Box>
+
       <Box component="form" onSubmit={handleSubmit} sx={styleBoxIncome}>
+
         <Box sx={styleBoxTwoIncome}>
+
           <Typography sx={{ whiteSpace: "nowrap" }}>ILS</Typography>
+
           <InputGlobal
             variant="standard"
             error={hasError}
@@ -112,17 +123,21 @@ const ExpensesTransaction = () => {
             autoFocus={true}
           />
         </Box>
+
         <Box sx={styleBoxDate}>
           <DatesGlobal
-            label="בחר תאריך"
+            label="select date"
             onlyPast={true}
             sx={styleDate}
             defaultValue={dayjs()}
             value={valueDate}
             onChange={setValueDate}
           />
+
         </Box>
+
         <Typography sx={{ ml: "3%" }}>
+
           <br />
           CATEGORIES
           <br />
@@ -143,7 +158,7 @@ const ExpensesTransaction = () => {
             sx={styleButtonSend}
             disabled={!(amount > 0 && categoryId)}
           >
-            send
+            ADD TRANSACTION
           </ButtonGlobal>
         </Box>
       </Box>

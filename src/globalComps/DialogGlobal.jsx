@@ -1,7 +1,7 @@
-import Dialog from '@mui/material/Dialog'
-import React from 'react'
+import Dialog from '@mui/material/Dialog';
 
 const DialogGlobal = ({open, onClose, children, fullScreen, paperProps, sx }) => {
+  
   return (
    <Dialog
    open={open}

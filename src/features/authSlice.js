@@ -1,22 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchLogin, fetchSignUp } from "../thunks/authThunk";
 
-const loading = "loading";
-const succeeded = "succeeded";
-const failed = "failed";
+import { fetchLogin, fetchSignUp } from "../thunks/authThunk";
+import { FAILED, LOADING, SUCCEEDED } from "../constance";
+
+
 // ---auth slice---
 const authSlice = createSlice({
   name: "auth",
   initialState: {
     userId: null,
     message: null,
-    status: "idle", // idle | loading | succeeded | failed
+    status: "idle", 
     error: null,
   },
+
   reducers: {
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+
     logout: (state) => {
       state.userId = null;
       state.message = null;
@@ -24,35 +26,36 @@ const authSlice = createSlice({
       state.error = null;
     }
   },
+  
   extraReducers: (builder) => {
     builder
       // ---login case---
       .addCase(fetchLogin.pending, (state) => {
-        state.status = loading;
+        state.status = LOADING;
         state.error = null;
       })
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        state.status = succeeded;
+        state.status = SUCCEEDED;
         state.userId = action.payload.userId;
         state.message = action.payload.msg;
       })
       .addCase(fetchLogin.rejected, (state, action) => {
-        state.status = failed;
+        state.status = FAILED;
         state.error = action.payload;
       })
 
       // ---signup case---
       .addCase(fetchSignUp.pending, (state) => {
-        state.status = loading;
+        state.status = LOADING;
         state.error = null;
       })
       .addCase(fetchSignUp.fulfilled, (state, action) => {
-        state.status = succeeded;
+        state.status = SUCCEEDED;
         state.message = action.payload.msg;
         state.userId = action.payload.userId;
       })
       .addCase(fetchSignUp.rejected, (state, action) => {
-        state.status = failed;
+        state.status = FAILED;
         state.error = action.payload;
       });
   },

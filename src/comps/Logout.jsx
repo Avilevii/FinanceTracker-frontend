@@ -1,20 +1,23 @@
-import Box from "@mui/material/Box"
-import { useState } from "react"
-import DialogGlobal from "../globalComps/DialogGlobal";
-import ButtonGlobal from "../globalComps/ButtonGlobal";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { IoMdExit } from "react-icons/io";
+
+import Box from "@mui/material/Box";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
+
+import DialogGlobal from "../globalComps/DialogGlobal";
+import ButtonGlobal from "../globalComps/ButtonGlobal";
 import { styleButtonsLogout, styleDialogLogout } from "../styles/logoutStyle";
-import { useDispatch } from "react-redux";
 import { logout } from "../features/authSlice";
-import { useNavigate } from "react-router-dom";
-import { IoMdExit } from "react-icons/io";
 import { resetStateBalance } from "../features/balanceSlice";
 import { resetStateHistory } from "../features/historySlice";
 import { resetStateCategories } from "../features/categoriesSlice";
 
 
 const Logout = ({sx, variant}) => {
+
     const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const Logout = ({sx, variant}) => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
     const handleClickExit = () => {
         dispatch(logout());
         dispatch(resetStateBalance())
@@ -31,6 +35,7 @@ const Logout = ({sx, variant}) => {
         localStorage.removeItem('userId');
         navigate('/auth')
     }
+    
   return (
     <Box>
         <ButtonGlobal color={variant}  sx={sx} onClick={handleOpen}>
@@ -38,7 +43,7 @@ const Logout = ({sx, variant}) => {
         </ButtonGlobal>
         <DialogGlobal paperProps={styleDialogLogout}  open={open} onClose={handleClose}>
             <DialogContentText >
-                ?האם אתה בטוח רוצה לצאת
+               Exiting the app? 
             </DialogContentText>
             <DialogActions>
                 <ButtonGlobal onClick={handleClose} sx={styleButtonsLogout}>CANCEL</ButtonGlobal>
