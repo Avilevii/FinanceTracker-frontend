@@ -56,7 +56,6 @@ const CreateCategory = ({ open = false, onclose }) => {
       categoryType: selectedType,
       iconName,
     };
-    console.log("HI", newCategory)
     dispatch(createCategoriesThunk(newCategory));
   };
 

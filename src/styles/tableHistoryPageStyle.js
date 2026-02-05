@@ -54,3 +54,21 @@ export const styleBoxSort = {
     width: 270,
 
 }
+
+export const styleBoxMore = {
+  display: 'flex',
+  justifyContent: 'center',
+  mt: 2,
+}
+
+export const styleButtonMore = {
+  borderRadius: 10,
+  mb: 2,
+  width: 150,
+  color: "black",
+  backgroundColor: "#3ab0d7bd",
+  border: '1px solid blue'
+
+
+
+}

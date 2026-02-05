@@ -3,9 +3,9 @@ import { API } from "../constance";
 const history = "history";
 
 // ALL HISTORY.
-export const getAllHistoryFetch = async (userId, period, sortCategory, sortTypeCategory) => {
+export const getAllHistoryFetch = async (userId, period, sortCategory, sortTypeCategory,  limit, page ) => {
   const response = await fetch(
-    `${API}/transactions/${userId}?period=${period}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`
+    `${API}/transactions/${userId}?period=${period}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}&limit=${limit}&page=${page}`
   );
 
   const result = await response.json();
@@ -14,10 +14,9 @@ export const getAllHistoryFetch = async (userId, period, sortCategory, sortTypeC
 };
 
 //HISTORY BY MONTH.
-export const getHistoryByMonthFetch = async (userId, period, month, year,  sortCategory, sortTypeCategory) => {
-  console.log("month", sortCategory, sortTypeCategory)
+export const getHistoryByMonthFetch = async (userId, period, month, year,  sortCategory, sortTypeCategory, limit, page) => {
   const response = await fetch(
-    `${API}/transactions/${userId}?period=${period}&month=${month}&year=${year}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`);
+    `${API}/transactions/${userId}?period=${period}&month=${month}&year=${year}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}&limit=${limit}&page=${page}`);
 
   const result = await response.json();
   if (!response.ok) throw new Error(result.msg || "history failed");
@@ -25,10 +24,9 @@ export const getHistoryByMonthFetch = async (userId, period, month, year,  sortC
 };
 
 // HISTORY BY RANGE
-export const getHistoryByRangeFetch = async (userId, period, startDate, endDate, sortCategory, sortTypeCategory) => {
+export const getHistoryByRangeFetch = async (userId, period, startDate, endDate, sortCategory, sortTypeCategory, limit, page) => {
   const response = await fetch(
-    `${API}/transactions/${userId}?period=${period}&startDate=${startDate}&endDate=${endDate}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}`);
-    console.log("AVI", sortCategory, sortTypeCategory)
+    `${API}/transactions/${userId}?period=${period}&startDate=${startDate}&endDate=${endDate}&sortCategory=${sortCategory}&sortTypeCategory=${sortTypeCategory}&limit=${limit}&page=${page}`);
   
     const result = await response.json();
     

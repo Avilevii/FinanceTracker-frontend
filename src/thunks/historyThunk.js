@@ -12,13 +12,17 @@ import {
 export const getAllHistoryThunk = createAsyncThunk(
   "history/getAllHistory",
   async (
-    { userId, period, sortCategory, sortTypeCategory }, { rejectWithValue }) => {
+    { userId, period, sortCategory, sortTypeCategory, limit, page },
+    { rejectWithValue },
+  ) => {
     try {
       const data = await getAllHistoryFetch(
         userId,
         period,
         sortCategory,
         sortTypeCategory,
+        limit,
+        page,
       );
       return data;
     } catch (err) {
@@ -32,7 +36,9 @@ export const getAllHistoryThunk = createAsyncThunk(
 export const getHistoryByMonthThunk = createAsyncThunk(
   "history/getHistoryByMonth",
   async (
-    { userId, period, month, year, sortCategory, sortTypeCategory }, { rejectWithValue }) => {
+    { userId, period, month, year, sortCategory, sortTypeCategory, limit, page },
+    { rejectWithValue },
+  ) => {
     try {
       const data = await getHistoryByMonthFetch(
         userId,
@@ -41,6 +47,8 @@ export const getHistoryByMonthThunk = createAsyncThunk(
         year,
         sortCategory,
         sortTypeCategory,
+        limit,
+        page,
       );
       return data;
     } catch (err) {
@@ -54,8 +62,9 @@ export const getHistoryByMonthThunk = createAsyncThunk(
 export const getHistoryByRangeThunk = createAsyncThunk(
   "history/getHistoryByRange",
   async (
-    { userId, period, startDate, endDate, sortCategory, sortTypeCategory }, { rejectWithValue }) => {
-
+    { userId, period, startDate, endDate, sortCategory, sortTypeCategory, limit, page },
+    { rejectWithValue },
+  ) => {
     try {
       const data = await getHistoryByRangeFetch(
         userId,
@@ -64,6 +73,8 @@ export const getHistoryByRangeThunk = createAsyncThunk(
         endDate,
         sortCategory,
         sortTypeCategory,
+         limit,
+         page
       );
       return data;
     } catch (err) {

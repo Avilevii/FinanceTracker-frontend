@@ -15,9 +15,10 @@ const initialState = {
   status: "idle",
   message: null,
   error: null,
-  limit: 10,
+  limit: 5,
   page: 1,
   hasMore: true,
+  firstLoad: true,
 };
 
 export const historySlice = createSlice({
@@ -41,6 +42,10 @@ export const historySlice = createSlice({
     resetPage: (state) => {
       state.page = 1;
     },
+
+    resetFirstLoad: (state) => {
+      state.firstLoad = false;
+    },
   },
 
   extraReducers: (builder) => {
@@ -51,8 +56,19 @@ export const historySlice = createSlice({
         state.error = null;
       })
       .addCase(getAllHistoryThunk.fulfilled, (state, action) => {
+
         state.status = SUCCEEDED;
-        state.items = action.payload;
+
+        const newHistory = action.payload;
+
+        if (state.page === 1) {
+           state.hasMore = true;
+          state.items = newHistory;
+        } else {
+          state.items.push(...newHistory);
+        }
+
+        if (newHistory.length < state.limit) state.hasMore = false;
       })
       .addCase(getAllHistoryThunk.rejected, (state, action) => {
         state.status = FAILED;
@@ -66,7 +82,17 @@ export const historySlice = createSlice({
       })
       .addCase(getHistoryByMonthThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.filteredItems = action.payload;
+        
+        const newItems = action.payload;
+
+        if(state.page === 1){
+           state.hasMore = true;
+          state.filteredItems = newItems
+        }else {
+          state.filteredItems.push(...newItems)
+        }
+
+        if (newItems.length < state.limit) state.hasMore = false;
       })
       .addCase(getHistoryByMonthThunk.rejected, (state, action) => {
         state.status = FAILED;
@@ -81,7 +107,17 @@ export const historySlice = createSlice({
       })
       .addCase(getHistoryByRangeThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        state.filteredItems = action.payload;
+        
+        const newItems = action.payload;
+
+        if(state.page === 1){
+           state.hasMore = true;
+          state.filteredItems = newItems
+        }else {
+          state.filteredItems.push(...newItems)
+        }
+
+        if (newItems.length < state.limit) state.hasMore = false;
       })
       .addCase(getHistoryByRangeThunk.rejected, (state, action) => {
         state.status = FAILED;
@@ -142,12 +178,22 @@ export const historySlice = createSlice({
   },
 });
 
-export const { resetStateHistory, resetHistoryItems, resetFilteredHistory } =
-  historySlice.actions;
+export const {
+  resetStateHistory,
+  resetHistoryItems,
+  resetFilteredHistory,
+  nextPage,
+  resetPage,
+  resetFirstLoad,
+} = historySlice.actions;
 export const selectMessage = (state) => state.history.message;
 export const selectStatus = (state) => state.history.status;
 export const selectError = (state) => state.history.error;
 export const selectHistoryItems = (state) => state.history.items;
 export const selectHistoryByfilter = (state) => state.history.filteredItems;
+export const selectHistoryLimit = (state) => state.history.limit;
+export const selectHistoryPage = (state) => state.history.page;
+export const selectHasMoreHistory = (state) => state.history.hasMore;
+export const selectFirstLoad = (state) => state.history.firstLoad;
 
 export default historySlice.reducer;
