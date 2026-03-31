@@ -17,14 +17,17 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!userId) return;
-    dispatch(getCategoriesThunk(userId));
+    if (userId) {
+      dispatch(getCategoriesThunk(userId));
+    }
   }, [dispatch, userId]);
 
   useEffect(() => {
     const storedUserId = localStorage.getItem("userId");
-    if (!storedUserId) return;
-    dispatch(setUserId(Number(storedUserId)));
+
+    if (storedUserId) {
+      dispatch(setUserId(Number(storedUserId)));
+    }
   }, [dispatch]);
 
   return (

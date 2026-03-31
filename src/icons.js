@@ -7,50 +7,41 @@ import {
   FaWifi,
   FaPhone,
   FaTools,
-
   FaUtensils,
   FaHamburger,
   FaShoppingBasket,
   FaCoffee,
   FaBreadSlice,
-
   FaCar,
   FaBus,
   FaTaxi,
   FaParking,
   FaPlane,
-
   FaHeartbeat,
   FaUserMd,
   FaPills,
   FaHospital,
-
   FaTshirt,
   FaShoePrints,
   FaGem,
-
   FaGamepad,
   FaFilm,
   FaMusic,
   FaUmbrellaBeach,
   FaTicketAlt,
-
   FaGraduationCap,
   FaBook,
   FaLaptopCode,
-
   FaMoneyBillWave,
   FaGift,
   FaBriefcase,
   FaHandshake,
-
   FaPiggyBank,
   FaChartLine,
   FaCreditCard,
   FaUniversity,
   FaFileInvoiceDollar,
   FaDonate,
-
   FaShoppingCart,
   FaWallet,
   FaQuestionCircle,
@@ -59,64 +50,52 @@ import {
   FaThLarge,
 
   // new
-   FaChild,
+  FaChild,
   FaBaby,
   FaDog,
   FaCat,
-
   FaHammer,
   FaPaintRoller,
   FaWrench,
-
   FaAppleAlt,
   FaFish,
   FaPizzaSlice,
   FaIceCream,
-
   FaRunning,
   FaBicycle,
   FaDumbbell,
   FaSwimmer,
-
   FaMobileAlt,
   FaTv,
   FaHeadphones,
   FaCamera,
-
   FaBirthdayCake,
   FaGlassCheers,
-
   FaMapMarkedAlt,
   FaHotel,
   FaSuitcase,
-
   FaSeedling,
   FaLeaf,
   FaTree,
-
   FaBusAlt,
   FaMotorcycle,
   FaShip,
-
   FaLock,
   FaKey,
   FaShieldAlt,
-
   FaRegSmile,
   FaLaugh,
   FaMeh,
-
   FaFileContract,
   FaClipboardList,
   FaChartPie,
-
   FaCloud,
   FaServer,
-  FaDatabase
+  FaDatabase,
 } from "react-icons/fa";
 
 export const financeIconsMap = {
-  //  דיור וחשבונות
+  // Housing and accounts
   home: FaHome,
   electricity: FaBolt,
   water: FaWater,
@@ -125,49 +104,49 @@ export const financeIconsMap = {
   phone: FaPhone,
   maintenance: FaTools,
 
-  //  אוכל וקניות
+  // food and shopping
   restaurant: FaUtensils,
   fastFood: FaHamburger,
   groceries: FaShoppingBasket,
   coffee: FaCoffee,
   bakery: FaBreadSlice,
 
-  //  תחבורה
+  // transport
   car: FaCar,
   bus: FaBus,
   taxi: FaTaxi,
   parking: FaParking,
   flight: FaPlane,
 
-  //  בריאות
+  // health
   health: FaHeartbeat,
   doctor: FaUserMd,
   pharmacy: FaPills,
   hospital: FaHospital,
 
-  //  קניות אישיות
+  // Personal shopping
   clothes: FaTshirt,
   shoes: FaShoePrints,
   accessories: FaGem,
 
-  //  פנאי ובידור
+  // Leisure and entertainment
   games: FaGamepad,
   cinema: FaFilm,
   music: FaMusic,
   vacation: FaUmbrellaBeach,
   events: FaTicketAlt,
 
-  //  לימודים והתפתחות
+  // studies and development
   education: FaGraduationCap,
   books: FaBook,
   onlineCourse: FaLaptopCode,
 
-  //  עבודה והכנסות
+  // work and income
   salary: FaMoneyBillWave,
   bonus: FaGift,
   work: FaBriefcase,
   freelance: FaHandshake,
-  //  כספים כלליים
+  // general finances
   savings: FaPiggyBank,
   investments: FaChartLine,
   creditCard: FaCreditCard,
@@ -175,7 +154,7 @@ export const financeIconsMap = {
   taxes: FaFileInvoiceDollar,
   donation: FaDonate,
 
-  //  כללי
+  // general
   shopping: FaShoppingCart,
   wallet: FaWallet,
   create: FaPlus,
@@ -183,72 +162,72 @@ export const financeIconsMap = {
   other: FaThLarge,
 
   // NEW
-  // משפחה וילדים
+  // femely and children
   kids: FaChild,
   baby: FaBaby,
   petsDog: FaDog,
   petsCat: FaCat,
 
-  // שיפוצים ותחזוקה
+  // Renovations and maintenance
   tools: FaHammer,
   painting: FaPaintRoller,
   repairs: FaWrench,
 
-  // אוכל מורחב
+  // expanded food
   fruits: FaAppleAlt,
   fish: FaFish,
   pizza: FaPizzaSlice,
   iceCream: FaIceCream,
 
-  // ספורט ובריאות
+  // sport and health
   running: FaRunning,
   cycling: FaBicycle,
   gym: FaDumbbell,
   swimming: FaSwimmer,
 
-  // אלקטרוניקה
+  // electronic
   mobile: FaMobileAlt,
   television: FaTv,
   audio: FaHeadphones,
   photography: FaCamera,
 
-  // אירועים וחגיגות
+  // events and celebration
   celebration: FaGlassCheers,
   birthday: FaBirthdayCake,
   gifts: FaGift,
 
-  // נסיעות ונופש מורחב
+  // Extended travel and leisure
   travelMap: FaMapMarkedAlt,
   hotel: FaHotel,
   luggage: FaSuitcase,
 
-  // טבע וסביבה
+  // Nature and health
   plants: FaSeedling,
   eco: FaLeaf,
   gardening: FaTree,
 
-  // תחבורה נוספת
+  // Additional transportation
   publicBus: FaBusAlt,
   motorcycle: FaMotorcycle,
   shipping: FaShip,
 
-  // אבטחה וביטוחים
+  //  Security and insurance
   security: FaLock,
   keys: FaKey,
   insurance: FaShieldAlt,
 
-  // רגשות / רווחה
+  //  Emotions and well-being
   happiness: FaRegSmile,
   fun: FaLaugh,
   stress: FaMeh,
 
-  // ניהול ועסקים
+  // management and business
   contracts: FaFileContract,
   tasks: FaClipboardList,
   analytics: FaChartPie,
 
-  // טכנולוגיה
+  // technology
   cloud: FaCloud,
   server: FaServer,
-  database: FaDatabase
+  database: FaDatabase,
 };

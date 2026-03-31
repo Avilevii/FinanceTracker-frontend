@@ -1,24 +1,25 @@
 import { useSelector } from "react-redux";
 import { MdSearchOff } from "react-icons/md";
 
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  Typography,
+  Box,
+} from "@mui/material";
 
 import { selectCategories } from "../features/categoriesSlice";
 import { financeIconsMap } from "../icons";
 import { selectError } from "../features/historySlice";
 import { styleErrorTableGlobal } from "../styles/tableGlobalStyle";
-import { HEAD_TABLE_NAME } from "../constance";
+import { HEAD_TABLE_NAME } from "../constants";
 
 const TableHistoryGlobal = ({ items }) => {
-
   const categories = useSelector(selectCategories);
   const error = useSelector(selectError);
 
@@ -49,62 +50,55 @@ const TableHistoryGlobal = ({ items }) => {
     );
   }
 
-  const bodyTableCell = items
-    .slice()
-    .reverse()
-    .map((item, index) => {
-      const category = categories.find(({ id }) => id === item?.categoryId);
-      if (!category) return null;
-      const Icon = financeIconsMap[category?.iconName];
-      const isType = category?.categoryType === "income" ? "green" : "red";
-      return (
-        <TableRow
-          key={index}
-          sx={{ backgroundColor: index % 2 === 0 ? "white" : "#f5f5f5" }}
-        >
-
-          <TableCell align={align}>
-            <Icon
-              style={{
-                color: isType,
-              }}
-              size={35}
-            />
-          </TableCell>
-
-          <TableCell align={align}>{category?.categoryName}</TableCell>
-
-          <TableCell
-            align={align}
-            sx={{
+  const bodyTableCell = items.slice().map((item, index) => {
+    const category = categories.find(({ id }) => id === item?.categoryId);
+    if (!category) return null;
+    const Icon = financeIconsMap[category?.iconName];
+    const isType = category?.categoryType === "income" ? "green" : "red";
+    return (
+      <TableRow
+        key={index}
+        sx={{ backgroundColor: index % 2 === 0 ? "white" : "#f5f5f5" }}
+      >
+        <TableCell align={align}>
+          <Icon
+            style={{
               color: isType,
             }}
-          >
-            ₪{category?.categoryType === "income" ? " +" : " -"}
-            {item?.amount}
-          </TableCell>
+            size={35}
+          />
+        </TableCell>
 
-          <TableCell
-            align={align}
-            sx={{ display: { xs: "none", sm: "table-cell" } }}
-          >
-            {item?.date}
-          </TableCell>
+        <TableCell align={align}>{category?.categoryName}</TableCell>
 
-        </TableRow>
-      );
-    });
+        <TableCell
+          align={align}
+          sx={{
+            color: isType,
+          }}
+        >
+          ₪{category?.categoryType === "income" ? " +" : " -"}
+          {item?.amount}
+        </TableCell>
+
+        <TableCell
+          align={align}
+          sx={{ display: { xs: "none", sm: "table-cell" } }}
+        >
+          {item?.date}
+        </TableCell>
+      </TableRow>
+    );
+  });
 
   return (
     <TableContainer component={Paper}>
-
       <Table>
         <TableHead>
           <TableRow>{headTableCell}</TableRow>
         </TableHead>
         <TableBody>{bodyTableCell}</TableBody>
       </Table>
-
     </TableContainer>
   );
 };

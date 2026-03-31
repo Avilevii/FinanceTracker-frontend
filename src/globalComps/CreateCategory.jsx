@@ -1,14 +1,16 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import DialogContent from "@mui/material/DialogContent";
-import Box from "@mui/material/Box";
-import ButtonGroup from "@mui/material/ButtonGroup";
+import {
+  DialogTitle,
+  DialogContent,
+  Typography,
+  IconButton,
+  Box,
+  ButtonGroup,
+} from "@mui/material";
 
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import DialogGlobal from "./DialogGlobal";
 import {
   buttonSubmitStyle,
@@ -18,7 +20,7 @@ import {
   incomeButtonStyle,
   styleDialogContent,
   styleInputCreatCategory,
-} from "../styles/createCategoryStyle";
+} from "../styles/createCategoryStyle.js";
 import ButtonGlobal from "./ButtonGlobal";
 import InputGlobal from "./InputGlobal";
 import GridIcons from "./GridIcons";
@@ -26,9 +28,10 @@ import { selectUserId } from "../features/authSlice";
 import { createCategoriesThunk } from "../thunks/categoriesThunk";
 
 const CreateCategory = ({ open = false, onclose }) => {
+  const income = "income";
+  const expenses = "expenses";
 
-  const income = 'income';
-  const expenses = 'expenses'
+  const dispatch = useDispatch();
 
   const [categoryName, setCategoryName] = useState("");
   const [hasError, setHasError] = useState(false);
@@ -36,8 +39,6 @@ const CreateCategory = ({ open = false, onclose }) => {
   const [iconName, setIconName] = useState("");
 
   const userId = useSelector(selectUserId);
-
-  const dispatch = useDispatch();
 
   const handleChange = ({ target: { value } }) => {
     setCategoryName(value);
@@ -47,8 +48,8 @@ const CreateCategory = ({ open = false, onclose }) => {
     if (categoryName === "") setHasError(true);
   };
 
-    const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     onclose();
     const newCategory = {
       userId,

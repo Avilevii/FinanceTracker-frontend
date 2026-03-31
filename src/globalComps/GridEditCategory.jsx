@@ -1,29 +1,27 @@
 import { useSelector } from "react-redux";
 
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Grid, Box, Typography } from "@mui/material";
 
 import { selectUserId } from "../features/authSlice";
 import { financeIconsMap } from "../icons";
-import { sryleTypography, styleIcon, styleItemBox } from "../styles/gridEditStyle";
+import {
+  sryleTypography,
+  styleIcon,
+  styleItemBox,
+} from "../styles/gridEditStyle";
+import { maxNameCategory } from "../utils";
 
 const GridEditCategory = ({
   categories = [],
   onClickCategory,
   categoryType,
 }) => {
-
   const userId = useSelector(selectUserId);
-  
+
   const categoriesFiltered = categories.filter(
     (category) =>
-      category.userId === userId && category.categoryType === categoryType
+      category.userId === userId && category.categoryType === categoryType,
   );
-
-  const maxNameCategory = (name, maxLength = 8) => {
-    return name.length > maxLength ? name.slice(0, maxLength) + ".." : name;
-  };
 
   const mapCategories = categoriesFiltered.map((category) => {
     const Icon = financeIconsMap[category.iconName];
@@ -34,9 +32,7 @@ const GridEditCategory = ({
           <Box sx={styleIcon} onClick={() => onClickCategory(category)}>
             <Icon size={30} />
           </Box>
-          <Typography
-            sx={sryleTypography}
-          >
+          <Typography sx={sryleTypography}>
             {maxNameCategory(category.categoryName)}
           </Typography>
         </Box>

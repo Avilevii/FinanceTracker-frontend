@@ -1,5 +1,4 @@
-import { backgroundStyle } from "./headecolor";
-
+import { backgroundStyle } from "./headerColor";
 
 export const styleHeaderHome = {
   minHeight: "40vh",

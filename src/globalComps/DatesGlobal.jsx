@@ -20,8 +20,9 @@ const DatesGlobal = ({
 }) => {
   const limit = onlyPast ? dayjs() : undefined;
 
-  const [startDate, endDate] = Array.isArray(valueRange) ? valueRange : [null, null];
-
+  const [startDate, endDate] = Array.isArray(valueRange)
+    ? valueRange
+    : [null, null];
 
   if (variant === "button") {
     return (
@@ -49,8 +50,8 @@ const DatesGlobal = ({
           }}
         />
       </Box>
-        );
-  };
+    );
+  }
 
   return (
     <Box>
@@ -62,9 +63,9 @@ const DatesGlobal = ({
             maxDate={limit}
             value={startDate}
             onChange={(newValue) => {
-              onChange([newValue, endDate])
+              onChange([newValue, endDate]);
             }}
-           label='start date'
+            label="start date"
           />
 
           <DatePicker
@@ -73,14 +74,12 @@ const DatesGlobal = ({
             maxDate={limit}
             value={endDate}
             onChange={(newValue) => {
-              onChange([startDate, newValue])
+              onChange([startDate, newValue]);
             }}
-            label='end date'
+            label="end date"
           />
         </Box>
-        
       ) : (
-
         <DatePicker
           label={label}
           value={valueSingle}
@@ -94,5 +93,3 @@ const DatesGlobal = ({
   );
 };
 export default DatesGlobal;
-
-

@@ -1,8 +1,6 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
+import { AppBar, Box, Toolbar } from "@mui/material";
 
-import { backgroundStyle } from "../styles/headecolor";
+import { backgroundStyle } from "../styles/headerColor";
 
 const toolBar = {
   display: "flex",
@@ -14,14 +12,12 @@ const toolBar = {
   height: 64,
 };
 const Header = ({ left, center, right, sx }) => {
-
   const style = {
     ...backgroundStyle,
     boxShadow: "none",
   };
 
   return (
-    
     <AppBar sx={{ ...style, ...sx }} position="fixed">
       <Toolbar sx={{ ...toolBar }} disableGutters>
         <Box>{left}</Box>

@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchLogin, fetchSignUp } from "../thunks/authThunk";
-import { FAILED, LOADING, SUCCEEDED } from "../constance";
-
+import { loginThunk, signUpThunk } from "../thunks/authThunk";
+import { FAILED, LOADING, STATUS_SLICE, SUCCEEDED } from "../constants";
 
 // ---auth slice---
 const authSlice = createSlice({
@@ -10,7 +9,7 @@ const authSlice = createSlice({
   initialState: {
     userId: null,
     message: null,
-    status: "idle", 
+    STATUS_SLICE,
     error: null,
   },
 
@@ -22,39 +21,39 @@ const authSlice = createSlice({
     logout: (state) => {
       state.userId = null;
       state.message = null;
-      state.status = 'idle';
+      state.status = "idle";
       state.error = null;
-    }
+    },
   },
-  
+
   extraReducers: (builder) => {
     builder
       // ---login case---
-      .addCase(fetchLogin.pending, (state) => {
+      .addCase(loginThunk.pending, (state) => {
         state.status = LOADING;
         state.error = null;
       })
-      .addCase(fetchLogin.fulfilled, (state, action) => {
+      .addCase(loginThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
         state.userId = action.payload.userId;
         state.message = action.payload.msg;
       })
-      .addCase(fetchLogin.rejected, (state, action) => {
+      .addCase(loginThunk.rejected, (state, action) => {
         state.status = FAILED;
         state.error = action.payload;
       })
 
       // ---signup case---
-      .addCase(fetchSignUp.pending, (state) => {
+      .addCase(signUpThunk.pending, (state) => {
         state.status = LOADING;
         state.error = null;
       })
-      .addCase(fetchSignUp.fulfilled, (state, action) => {
+      .addCase(signUpThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
         state.message = action.payload.msg;
         state.userId = action.payload.userId;
       })
-      .addCase(fetchSignUp.rejected, (state, action) => {
+      .addCase(signUpThunk.rejected, (state, action) => {
         state.status = FAILED;
         state.error = action.payload;
       });

@@ -3,9 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { IoMdExit } from "react-icons/io";
 
-import Box from "@mui/material/Box";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogActions from "@mui/material/DialogActions";
+import { Box, DialogContentText, DialogActions } from "@mui/material";
 
 import DialogGlobal from "../globalComps/DialogGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
@@ -15,43 +13,50 @@ import { resetStateBalance } from "../features/balanceSlice";
 import { resetStateHistory } from "../features/historySlice";
 import { resetStateCategories } from "../features/categoriesSlice";
 
+const Logout = ({ sx, variant }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-const Logout = ({sx, variant}) => {
+  const [open, setOpen] = useState(false);
 
-    const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
-    const dispatch = useDispatch();
+  const handleClickExit = () => {
+    dispatch(logout());
+    dispatch(resetStateBalance());
+    dispatch(resetStateHistory());
+    dispatch(resetStateCategories());
+    localStorage.removeItem("userId");
+    navigate("/auth");
+  };
 
-    const navigate = useNavigate();
-
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
-
-    const handleClickExit = () => {
-        dispatch(logout());
-        dispatch(resetStateBalance())
-        dispatch(resetStateHistory())
-        dispatch(resetStateCategories())
-        localStorage.removeItem('userId');
-        navigate('/auth')
-    }
-    
   return (
     <Box>
-        <ButtonGlobal color={variant}  sx={sx} onClick={handleOpen}>
-            <IoMdExit size={23}/>
-        </ButtonGlobal>
-        <DialogGlobal paperProps={styleDialogLogout}  open={open} onClose={handleClose}>
-            <DialogContentText >
-               Exiting the app? 
-            </DialogContentText>
-            <DialogActions>
-                <ButtonGlobal onClick={handleClose} sx={styleButtonsLogout}>CANCEL</ButtonGlobal>
+      <ButtonGlobal color={variant} sx={sx} onClick={handleOpen}>
+        <IoMdExit size={23} />
+      </ButtonGlobal>
+      <DialogGlobal
+        paperProps={styleDialogLogout}
+        open={open}
+        onClose={handleClose}
+      >
+        <DialogContentText>Exiting the app?</DialogContentText>
+        <DialogActions>
+          <ButtonGlobal onClick={handleClose} sx={styleButtonsLogout}>
+            CANCEL
+          </ButtonGlobal>
 
-                <ButtonGlobal colorType="error" onClick={handleClickExit} sx={{...styleButtonsLogout, px: 3.6}}>EXIT</ButtonGlobal>
-            </DialogActions>
-        </DialogGlobal>
+          <ButtonGlobal
+            colorType="error"
+            onClick={handleClickExit}
+            sx={{ ...styleButtonsLogout, px: 3.6 }}
+          >
+            EXIT
+          </ButtonGlobal>
+        </DialogActions>
+      </DialogGlobal>
     </Box>
-  )
-}
-export default Logout
+  );
+};
+export default Logout;

@@ -15,7 +15,6 @@ const InputGlobal = ({
   autoFocus,
   defaultValue,
 }) => {
-  
   return (
     <TextField
       label={label}

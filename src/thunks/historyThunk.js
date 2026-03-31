@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import {
-  createHistoryFetch,
-  delteHistoryFetch,
-  getAllHistoryFetch,
-  getHistoryByMonthFetch,
-  getHistoryByRangeFetch,
-  updateHistoryFetch,
+  createHistoryApi,
+  delteHistoryApi,
+  getAllHistoryApi,
+  getHistoryByMonthApi,
+  getHistoryByRangeApi,
+  updateHistoryApi,
 } from "../api/historyApi";
 
 export const getAllHistoryThunk = createAsyncThunk(
@@ -16,7 +16,7 @@ export const getAllHistoryThunk = createAsyncThunk(
     { rejectWithValue },
   ) => {
     try {
-      const data = await getAllHistoryFetch(
+      const data = await getAllHistoryApi(
         userId,
         period,
         sortCategory,
@@ -36,11 +36,20 @@ export const getAllHistoryThunk = createAsyncThunk(
 export const getHistoryByMonthThunk = createAsyncThunk(
   "history/getHistoryByMonth",
   async (
-    { userId, period, month, year, sortCategory, sortTypeCategory, limit, page },
+    {
+      userId,
+      period,
+      month,
+      year,
+      sortCategory,
+      sortTypeCategory,
+      limit,
+      page,
+    },
     { rejectWithValue },
   ) => {
     try {
-      const data = await getHistoryByMonthFetch(
+      const data = await getHistoryByMonthApi(
         userId,
         period,
         month,
@@ -50,6 +59,7 @@ export const getHistoryByMonthThunk = createAsyncThunk(
         limit,
         page,
       );
+
       return data;
     } catch (err) {
       return rejectWithValue(
@@ -62,20 +72,30 @@ export const getHistoryByMonthThunk = createAsyncThunk(
 export const getHistoryByRangeThunk = createAsyncThunk(
   "history/getHistoryByRange",
   async (
-    { userId, period, startDate, endDate, sortCategory, sortTypeCategory, limit, page },
+    {
+      userId,
+      period,
+      startDate,
+      endDate,
+      sortCategory,
+      sortTypeCategory,
+      limit,
+      page,
+    },
     { rejectWithValue },
   ) => {
     try {
-      const data = await getHistoryByRangeFetch(
+      const data = await getHistoryByRangeApi(
         userId,
         period,
         startDate,
         endDate,
         sortCategory,
         sortTypeCategory,
-         limit,
-         page
+        limit,
+        page,
       );
+
       return data;
     } catch (err) {
       return rejectWithValue(
@@ -89,7 +109,8 @@ export const createHistoryThunk = createAsyncThunk(
   "history/createHistory",
   async (newHistory, { rejectWithValue }) => {
     try {
-      const data = await createHistoryFetch(newHistory);
+      const data = await createHistoryApi(newHistory);
+
       return data;
     } catch (err) {
       return rejectWithValue(
@@ -103,7 +124,8 @@ export const updateHistoryThunk = createAsyncThunk(
   "history/updateHistory",
   async ({ id, newHistory }, { rejectWithValue }) => {
     try {
-      const data = await updateHistoryFetch(id, newHistory);
+      const data = await updateHistoryApi(id, newHistory);
+
       return data;
     } catch (err) {
       return rejectWithValue(
@@ -117,7 +139,8 @@ export const deleteHistoryThunk = createAsyncThunk(
   "history/deleteHistory",
   async ({ id }, { rejectWithValue }) => {
     try {
-      const data = await delteHistoryFetch(id);
+      const data = await delteHistoryApi(id);
+
       return data;
     } catch (err) {
       return rejectWithValue(

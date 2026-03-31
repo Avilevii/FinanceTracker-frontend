@@ -6,11 +6,11 @@ import {
   updateCategoryThunk,
   deleteCategoryThunk,
 } from "../thunks/categoriesThunk";
-import { FAILED, LOADING, SUCCEEDED } from "../constance";
+import { FAILED, LOADING, STATUS_SLICE, SUCCEEDED } from "../constants";
 
 const initialState = {
   items: [],
-  status: "idle",
+  STATUS_SLICE,
   message: null,
   error: null,
 };
@@ -44,7 +44,7 @@ export const categoriesSlice = createSlice({
       })
       .addCase(createCategoriesThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        const newCategory = action.payload.cretedCategory;
+        const newCategory = action.payload.createdCategory;
         state.items.push(newCategory);
         state.message = action.payload.msg;
       })

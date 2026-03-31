@@ -7,16 +7,14 @@ import { store } from "./app/store.js";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <LocalizationProvider  dateAdapter={AdapterDayjs}>
-    <BrowserRouter>
-      <Provider store={store}>
-     <App />
-    </Provider>
-    </BrowserRouter>
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App />
+        </Provider>
+      </BrowserRouter>
     </LocalizationProvider>
-  </StrictMode>
+  </StrictMode>,
 );

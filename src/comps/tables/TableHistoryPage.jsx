@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
+import { Box, Typography } from "@mui/material";
 
 import ButtonGlobal from "../../globalComps/ButtonGlobal";
 import DatesGlobal from "../../globalComps/DatesGlobal";
@@ -39,17 +38,10 @@ import {
 } from "../../thunks/historyThunk";
 import SelectHistoryBySort from "../../globalComps/SelectHistoryBySort";
 import { selectCategories } from "../../features/categoriesSlice";
+import ButtonsSelectHistory from "../ButtonsSelectHistory";
+import ButtonMoreData from "../ButtonMoreData";
 
 const TableHistoryPage = () => {
-  const allHistory = useSelector(selectHistoryItems);
-  const userId = useSelector(selectUserId);
-  const filterHistory = useSelector(selectHistoryByfilter);
-  const categories = useSelector(selectCategories);
-  const hasMore = useSelector(selectHasMoreHistory);
-  const limit = useSelector(selectHistoryLimit);
-  const page = useSelector(selectHistoryPage);
-  const firstLoad = useSelector(selectFirstLoad);
-
   const dispatch = useDispatch();
 
   const [open, setOpen] = useState(false);
@@ -61,8 +53,18 @@ const TableHistoryPage = () => {
   const [sortTypeCategory, setSortTypeCategory] = useState("");
   const [hasDependencyChanged, setHasDependencyChanged] = useState(false);
 
+  const allHistory = useSelector(selectHistoryItems);
+  const userId = useSelector(selectUserId);
+  const filterHistory = useSelector(selectHistoryByfilter);
+  const categories = useSelector(selectCategories);
+  const hasMore = useSelector(selectHasMoreHistory);
+  const limit = useSelector(selectHistoryLimit);
+  const page = useSelector(selectHistoryPage);
+  const firstLoad = useSelector(selectFirstLoad);
+
   const isStartRangeDate = rangeDate[0];
   const isEndRangeDate = rangeDate[1];
+  const single = "single";
 
   const formatDate = (date) => (date ? date.format("DD/MM/YYYY") : "");
 
@@ -76,8 +78,7 @@ const TableHistoryPage = () => {
   const listSortTypeCategories = ["income", "expenses"];
 
   useEffect(() => {
-    if (!userId) return;
-    if (firstLoad) {
+    if (userId && (firstLoad || hasDependencyChanged)) {
       dispatch(
         getAllHistoryThunk({
           userId,
@@ -88,20 +89,10 @@ const TableHistoryPage = () => {
           page,
         }),
       );
-      dispatch(resetFirstLoad());
-      return;
-    }
-    if (hasDependencyChanged) {
-      dispatch(
-        getAllHistoryThunk({
-          userId,
-          period: "all",
-          sortCategory,
-          sortTypeCategory,
-          limit,
-          page,
-        }),
-      );
+
+      if (firstLoad) {
+        dispatch(resetFirstLoad());
+      }
     }
   }, [
     dispatch,
@@ -178,20 +169,19 @@ const TableHistoryPage = () => {
   const handleChangeDateRange = (arrayDates) => {
     setHasDependencyChanged(true);
     dispatch(resetPage());
-    dispatch(resetHistoryItems());
     setSingleDate(null);
     dispatch(resetHistoryItems());
     setRangeDate(arrayDates);
   };
 
-  const handleChangeMonth = (newValue) => {
+  const handleChangeMonth = (selectMonth) => {
     dispatch(resetHistoryItems());
     setRangeDate([null, null]);
-    setSingleDate(newValue);
+    setSingleDate(selectMonth);
   };
 
   const handleClickMonth = () => {
-    setMode("single");
+    setMode(single);
     setOpen(true);
     setOpenOption(false);
   };
@@ -205,17 +195,17 @@ const TableHistoryPage = () => {
     setSingleDate(null);
   };
 
-  const handleChangeSortCategory = (event) => {
+  const handleChangeSortCategory = ({ target: { value } }) => {
     setHasDependencyChanged(true);
-    setSortCategory(event.target.value);
+    setSortCategory(value);
     dispatch(resetFilteredHistory());
     dispatch(resetHistoryItems());
     dispatch(resetPage());
   };
 
-  const handleChangeSelectType = (event) => {
+  const handleChangeSelectType = ({ target: { value } }) => {
     setHasDependencyChanged(true);
-    setSortTypeCategory(event.target.value);
+    setSortTypeCategory(value);
     dispatch(resetPage());
   };
 
@@ -226,12 +216,12 @@ const TableHistoryPage = () => {
 
   return (
     <Box>
-      <Box sx={styleBoxOption}>
-        <ButtonGlobal onClick={handleclickAll}>ALL</ButtonGlobal>
-        <ButtonGlobal onClick={handleClickMonth}>MONTH</ButtonGlobal>
-        <ButtonGlobal onClick={handleClickRange}>RANGE</ButtonGlobal>
-      </Box>
-
+      <ButtonsSelectHistory
+        sx={styleBoxOption}
+        onClickAll={handleclickAll}
+        onClickMonth={handleClickMonth}
+        onClickRange={handleClickRange}
+      />
       {mode === "range" && openOption && (
         <Box>
           <DatesGlobal
@@ -245,7 +235,7 @@ const TableHistoryPage = () => {
         </Box>
       )}
 
-      {mode === "single" && (
+      {mode === single && (
         <Box sx={styleDateMonth}>
           <DatesGlobal
             onChange={handleChangeMonth}
@@ -297,11 +287,11 @@ const TableHistoryPage = () => {
       <TableHistoryGlobal items={currentHistory} />
 
       {hasMore && (
-        <Box sx={styleBoxMore}>
-          <ButtonGlobal sx={styleButtonMore} onClick={handleClickMore}>
-            MORE
-          </ButtonGlobal>
-        </Box>
+        <ButtonMoreData
+          sx={styleBoxMore}
+          onClick={handleClickMore}
+          styleButton={styleButtonMore}
+        />
       )}
     </Box>
   );

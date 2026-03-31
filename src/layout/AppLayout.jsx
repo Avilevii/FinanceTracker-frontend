@@ -10,6 +10,7 @@ import useIsDesktop from "../hooks/useIsDesktop.js";
 
 const AppLayout = () => {
   const isDesktop = useIsDesktop();
+  const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
   const [headerCenter, setHeaderCenter] = useState(null);
@@ -23,8 +24,6 @@ const AppLayout = () => {
       {headerLeftExtra}
     </Box>
   );
-
-  const navigate = useNavigate();
 
   const handleMenuClick = (path) => {
     navigate(path);

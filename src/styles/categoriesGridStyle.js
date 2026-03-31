@@ -14,7 +14,7 @@ export const styleBoxIcon = {
   height: "60px",
   borderRadius: 30,
   backgroundColor: "#bfc8d0ff",
-  cursor: "pointer", 
+  cursor: "pointer",
 };
 
 export const styleBoxClickIcon = {
@@ -25,7 +25,4 @@ export const styleBoxClickIcon = {
   height: 100,
   width: 75,
   borderRadius: 2,
- 
 };
-
-

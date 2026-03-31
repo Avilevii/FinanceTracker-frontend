@@ -1,12 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { postLoginFetch, postSignUpFetch } from "../api/authApi";
+import { loginApi, signUpApi } from "../api/authApi";
 
-export const fetchLogin = createAsyncThunk(
+export const loginThunk = createAsyncThunk(
   "login/fetchlogin",
   async ({ userName, password }, { rejectWithValue }) => {
     try {
-      const data = await postLoginFetch(userName, password);
+      const data = await loginApi(userName, password);
 
       localStorage.setItem("userId", data.userId);
 
@@ -17,11 +17,11 @@ export const fetchLogin = createAsyncThunk(
   },
 );
 
-export const fetchSignUp = createAsyncThunk(
+export const signUpThunk = createAsyncThunk(
   "SignUp/fetchSignUp",
   async ({ userName, password }, { rejectWithValue }) => {
     try {
-      const data = await postSignUpFetch(userName, password);
+      const data = await signUpApi(userName, password);
       localStorage.setItem("userId", data.userId);
 
       return data;

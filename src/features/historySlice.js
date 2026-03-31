@@ -7,12 +7,12 @@ import {
   deleteHistoryThunk,
   getHistoryByRangeThunk,
 } from "../thunks/historyThunk";
-import { FAILED, LOADING, SUCCEEDED } from "../constance";
+import { FAILED, LOADING, STATUS_SLICE, SUCCEEDED } from "../constants";
 
 const initialState = {
   items: [],
   filteredItems: [],
-  status: "idle",
+  STATUS_SLICE,
   message: null,
   error: null,
   limit: 5,
@@ -56,13 +56,12 @@ export const historySlice = createSlice({
         state.error = null;
       })
       .addCase(getAllHistoryThunk.fulfilled, (state, action) => {
-
         state.status = SUCCEEDED;
 
         const newHistory = action.payload;
 
         if (state.page === 1) {
-           state.hasMore = true;
+          state.hasMore = true;
           state.items = newHistory;
         } else {
           state.items.push(...newHistory);
@@ -82,14 +81,14 @@ export const historySlice = createSlice({
       })
       .addCase(getHistoryByMonthThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        
+
         const newItems = action.payload;
 
-        if(state.page === 1){
-           state.hasMore = true;
-          state.filteredItems = newItems
-        }else {
-          state.filteredItems.push(...newItems)
+        if (state.page === 1) {
+          state.hasMore = true;
+          state.filteredItems = newItems;
+        } else {
+          state.filteredItems.push(...newItems);
         }
 
         if (newItems.length < state.limit) state.hasMore = false;
@@ -107,14 +106,14 @@ export const historySlice = createSlice({
       })
       .addCase(getHistoryByRangeThunk.fulfilled, (state, action) => {
         state.status = SUCCEEDED;
-        
+
         const newItems = action.payload;
 
-        if(state.page === 1){
-           state.hasMore = true;
-          state.filteredItems = newItems
-        }else {
-          state.filteredItems.push(...newItems)
+        if (state.page === 1) {
+          state.hasMore = true;
+          state.filteredItems = newItems;
+        } else {
+          state.filteredItems.push(...newItems);
         }
 
         if (newItems.length < state.limit) state.hasMore = false;

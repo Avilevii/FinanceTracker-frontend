@@ -2,9 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Box from "@mui/material/Box";
-import CircularProgress from "@mui/material/CircularProgress";
-import Typography from "@mui/material/Typography";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 import InputGlobal from "../globalComps/InputGlobal";
 import ButtonGlobal from "../globalComps/ButtonGlobal";
@@ -13,34 +11,32 @@ import {
   selectMessage,
   selectStatus,
 } from "../features/authSlice.js";
-import { fetchSignUp } from "../thunks/authThunk.js";
+import { signUpThunk } from "../thunks/authThunk.js";
+import { FAILED, LOADING, SUCCEEDED } from "../constants.js";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
   const message = useSelector(selectMessage);
   const status = useSelector(selectStatus);
   const error = useSelector(selectError);
 
-  const dispatch = useDispatch();
-
-  const navigate = useNavigate();
-
   useEffect(() => {
-    if (status === "succeeded") {
+    if (status === SUCCEEDED) {
       navigate("/home");
     }
   }, [status, navigate]);
 
+  const handleChangeUserName = ({ target: { value } }) => setUserName(value);
+  const handleChangePassword = ({ target: { value } }) => setPassword(value);
 
-  const handleChangeUserName = ({target: {value}}) => setUserName(value);
-  const handleChangePassword = ({target: {value}}) => setPassword(value);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(fetchSignUp({ userName, password }));
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(signUpThunk({ userName, password }));
   };
 
   return (
@@ -69,9 +65,9 @@ const SignUp = () => {
         type="password"
       />
       <ButtonGlobal type="submit">submit</ButtonGlobal>
-      {status === "loading" && <CircularProgress />}
-      {status === "succeeded" && <Typography>{message}</Typography>}
-      {status === "failed" && (
+      {status === LOADING && <CircularProgress />}
+      {status === SUCCEEDED && <Typography>{message}</Typography>}
+      {status === FAILED && (
         <Typography sx={{ color: "red" }}>{error}</Typography>
       )}
     </Box>

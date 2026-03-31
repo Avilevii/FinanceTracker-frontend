@@ -39,27 +39,24 @@ export const styleDateMonth = {
 };
 
 export const styleBoxSelect = {
-    display: 'flex',
-    justifyContent: 'center',
-    gap: 5,
-    mb: 1,
-    
-    // backgroundColor: 'red'
-}
+  display: "flex",
+  justifyContent: "center",
+  gap: 5,
+  mb: 1,
+};
 
 export const styleBoxSort = {
-    backgroundColor: "#fff",
-    boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
-    borderRadius: 2,
-    width: 270,
-
-}
+  backgroundColor: "#fff",
+  boxShadow: "0px 4px 10px rgba(0,0,0,0.15)",
+  borderRadius: 2,
+  width: 270,
+};
 
 export const styleBoxMore = {
-  display: 'flex',
-  justifyContent: 'center',
+  display: "flex",
+  justifyContent: "center",
   mt: 2,
-}
+};
 
 export const styleButtonMore = {
   borderRadius: 10,
@@ -67,8 +64,5 @@ export const styleButtonMore = {
   width: 150,
   color: "black",
   backgroundColor: "#3ab0d7bd",
-  border: '1px solid blue'
-
-
-
-}
+  border: "1px solid blue",
+};

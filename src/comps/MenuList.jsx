@@ -1,13 +1,15 @@
 import { TiChevronRightOutline } from "react-icons/ti";
 
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItemText from "@mui/material/ListItemText";
+import {
+  Drawer,
+  List,
+  ListItemText,
+  IconButton,
+  Box,
+  Divider,
+  ListItemButton,
+} from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
-import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import ListItemButton from "@mui/material/ListItemButton";
 
 import Logout from "./Logout";
 
@@ -25,7 +27,6 @@ const MenuList = ({
   ];
 
   return (
-    
     <Drawer
       anchor="left"
       open={isDesktop ? true : open}

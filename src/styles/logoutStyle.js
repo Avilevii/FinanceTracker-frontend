@@ -1,6 +1,5 @@
 export const styleButtonsLogout = {
-    borderRadius: 20,
-
+  borderRadius: 20,
 };
 
 export const styleDialogLogout = {
@@ -12,7 +11,6 @@ export const styleDialogLogout = {
     alignItems: "center",
     pt: 1,
     gap: 2,
-    borderRadius: 3
-
+    borderRadius: 3,
   },
 };

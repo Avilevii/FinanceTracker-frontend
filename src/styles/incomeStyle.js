@@ -1,10 +1,9 @@
 import Popper from "@mui/material/Popper";
-import { backgroundStyle } from "./headecolor";
+import { backgroundStyle } from "./headerColor";
 
 export const styleBoxIncome = {
   display: "flex",
   flexDirection: "column",
-  // backgroundColor: "var(--muidocs-palette-success-50, hsl(144, 72%, 95%))",
 };
 
 export const styleBoxTwoIncome = {

@@ -1,4 +1,3 @@
-
 export const styleDialogContent = {
   display: "flex",
   alignItems: "center",
@@ -19,7 +18,7 @@ export const incomeButtonClickStyle = {
 };
 
 export const expensesButtonClickStyle = {
-    backgroundColor: "red",
+  backgroundColor: "red",
   color: "white",
 };
 
@@ -27,22 +26,22 @@ export const incomeButtonStyle = {
   width: 160,
   height: 35,
   borderColor: "red",
-  color: 'black'
+  color: "black",
 };
 
 export const expensesButtonStyle = {
   width: 160,
   height: 35,
   borderColor: "red",
-  color: 'black'
+  color: "black",
 };
 
 export const buttonSubmitStyle = {
-    position: "absolute",
-        bottom: 20,
-        left: "50%",
-        transform: "translateX(-50%)",
-        width: "50%",
-        maxWidth: '430px' ,
-        borderRadius: "30px",
-}
+  position: "absolute",
+  bottom: 20,
+  left: "50%",
+  transform: "translateX(-50%)",
+  width: "50%",
+  maxWidth: "430px",
+  borderRadius: "30px",
+};
