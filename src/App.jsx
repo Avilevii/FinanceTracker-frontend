@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { selectUserId, setUserId } from "./features/authSlice";
+import "./index.css";
+import AuthPage from "./pages/AuthPage";
+import HomePage from "./pages/HomePage";
+import HistoryPage from "./pages/HistoryPage";
+import AppLayout from "./layout/AppLayout";
+import TransactionsPage from "./pages/TransactionsPage";
+import { getCategoriesThunk } from "./thunks/categoriesThunk";
+
+const App = () => {
+  const userId = useSelector(selectUserId);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(getCategoriesThunk(userId));
+    }
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem("userId");
+
+    if (storedUserId) {
+      dispatch(setUserId(Number(storedUserId)));
+    }
+  }, [dispatch]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" replace />} />
+        <Route path="/auth" element={<AuthPage />}></Route>
 
-export default App
+        <Route element={<AppLayout />}>
+          <Route path="home" element={<HomePage />} />
+          <Route path="history" element={<HistoryPage />} />
+          <Route path="transactions" element={<TransactionsPage />} />
+        </Route>
+      </Routes>
+    </div>
+  );
+};
+export default App;
